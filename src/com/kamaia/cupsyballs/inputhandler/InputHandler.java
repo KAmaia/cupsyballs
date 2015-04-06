@@ -1,14 +1,10 @@
 package com.kamaia.cupsyballs.inputhandler;
 
 import com.googlecode.lanterna.input.Key;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.TerminalSize;
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.gui.menus.menuItems.interfaces.MenuItemInterface;
 import com.kamaia.cupsyballs.inputhandler.gamekeybindinginterface.GameKeyCharBindingInterface;
 import com.kamaia.cupsyballs.inputhandler.gamekeybindinginterface.GameKeyKindBindingInterface;
 import com.kamaia.cupsyballs.inputhandler.keybindings.*;
-import com.kamaia.cupsyballs.inputhandler.menukeykindbindinginterface.MenuKeyKindBindingInterface;
 import com.kamaia.cupsyballs.states.Game;
 import com.kamaia.cupsyballs.states.abstracts.AbstractMenu;
 
@@ -23,15 +19,10 @@ import java.util.ArrayList;
 public class InputHandler {
 	//this class really needs something.
 
-	private int menuIndex = 0;
-	private ArrayList<MenuItemInterface> menuItems;
 	private ArrayList<GameKeyKindBindingInterface> gameKeyKindBindings = new ArrayList<GameKeyKindBindingInterface>();
 	private ArrayList<GameKeyCharBindingInterface> gameKeyCharBindings = new ArrayList<GameKeyCharBindingInterface>();
-	private ArrayList<MenuKeyKindBindingInterface> menuKeyKindBindings = new ArrayList<MenuKeyKindBindingInterface>();
 
-	private Screen       screen;
 	private GameWindow   gameWindow;
-	private TerminalSize ts;
 
 	/**
 	 * @param window the main game window.
@@ -39,8 +30,6 @@ public class InputHandler {
 	public InputHandler(GameWindow window) {
 
 		gameWindow = window;
-		screen = gameWindow.getScreen();
-		ts = screen.getTerminalSize();
 
 		populateBindings();
 	}
@@ -89,7 +78,6 @@ public class InputHandler {
 
 		// handle menu input
 		//pull the menu items from the sending menu.
-		menuItems = sendingState.getMenuItems();
 		switch (k.getKind()) {
 			case ArrowDown:
 				sendingState.selectNextMenuItem(1);
