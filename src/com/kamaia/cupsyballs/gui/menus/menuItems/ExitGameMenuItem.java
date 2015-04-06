@@ -13,14 +13,12 @@ public class ExitGameMenuItem implements MenuItemInterface {
 
 	@Override
 	public String getItemString() {
-
-		// TODO Auto-generated method stub
 		return "Exit Game";
 	}
 
 	@Override
 	public void execute(GameWindow window, AbstractState state) {
-		// TODO Auto-generated method stub
+		// Shutdown the program.
 		state.shutdown();
 		System.exit(0);
 	}
@@ -28,7 +26,7 @@ public class ExitGameMenuItem implements MenuItemInterface {
 	@Override
 	public void highlight() {
 
-		// TODO Auto-generated method stub
+		// Set the highlight colors
 		bgColor = Color.RED;
 		fgColor = Color.BLUE;
 
@@ -37,22 +35,21 @@ public class ExitGameMenuItem implements MenuItemInterface {
 	@Override
 	public void deHighlight() {
 
-		// TODO Auto-generated method stub
+		// Return the colors back to default
 		bgColor = Color.BLACK;
 		fgColor = Color.WHITE;
 	}
 
 	@Override
 	public Color getFgColor() {
-
-		// TODO Auto-generated method stub
+		//Return the forground color
 		return fgColor;
 	}
 
 	@Override
 	public Color getBgColor() {
 
-		// TODO Auto-generated method stub
+		// Return the bgColor
 		return bgColor;
 	}
 

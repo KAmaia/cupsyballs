@@ -13,9 +13,14 @@ import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 import java.util.ArrayList;
 
 /**
- * OH DEAR GOD! I don't want to comment this one!!!!
+ * OH DEAR GOD! I don't want to comment this one!!!! InputHandler is a massive mess but it works as planned, and so I
+ * don't think I'm going to change it too much.
+ * <p>
+ * Inputhandler handles input for the different game/menu states based on an instanceof case.
+ *
  */
 public class InputHandler {
+	//this class really needs something.
 
 	private int menuIndex = 0;
 	private ArrayList<MenuItemInterface> menuItems;
@@ -23,6 +28,9 @@ public class InputHandler {
 	private GameWindow   gameWindow;
 	private TerminalSize ts;
 
+	/**
+	 * @param window the main game window.
+	 */
 	public InputHandler(GameWindow window) {
 
 		gameWindow = window;
@@ -31,12 +39,16 @@ public class InputHandler {
 
 	}
 
+	/**
+	 * This method handles input for various menus, and the game itself.  The sending state identifies iteslf when it calls
+	 * into inputHandler and Key k can never be null.
+	 *
+	 * @param sendingState the abstract state that has asked inputHandler to handle input.
+	 * @param k            the key code that input handler is handling.
+	 */
 	public void handleInput(AbstractState sendingState, Key k) {
 
-		/**
-		 * @SendingState the abstract state that has asked inputHandler to handle input.
-		 * @Key k the key code that input handler is handling.
-		 */
+
 		if (sendingState instanceof Game) {
 			//if the sending state is of the Game sub-class.
 			// handle Game input
@@ -80,20 +92,27 @@ public class InputHandler {
 			menuItems = ((AbstractMenu) sendingState).getMenuItems();
 			//preset our previous and current menu items.
 			MenuItemInterface curMenuItem = menuItems.get(menuIndex);
-			MenuItemInterface preMenuItem = menuItems
-				   .get(menuItems.size() - 1);
+			MenuItemInterface preMenuItem = menuItems.get(menuItems.size() - 1);
 
 			switch (k.getKind()) {
 				case ArrowUp:
 					if (menuIndex > 0) {
 						menuIndex--;
+						//if we're not at the first entry in the list
+						//reduce our index by one, and set our current menu item to that index,
+						//and our previous menu item to the next one in the list.
 						preMenuItem = selectMenuItem(menuIndex + 1);
 						curMenuItem = selectMenuItem(menuIndex);
 					}
 					break;
 				case ArrowDown:
+					//BUG CHECK: Index loops past the last item in the list.
 					if (menuIndex <= menuItems.size() - 2) {
 						menuIndex++;
+
+						//if we're not at the last entry in the list
+						//increment our index by one, and set our current menu item to that index,
+						//and our previous menu item to the previous one in the list.
 						preMenuItem = selectMenuItem(menuIndex - 1);
 						curMenuItem = selectMenuItem(menuIndex);
 					}
@@ -105,11 +124,18 @@ public class InputHandler {
 				default:
 					break;
 			}
+			//highlight our menu items.
 			curMenuItem.highlight();
 			preMenuItem.deHighlight();
 		}
 	}
 
+	/**
+	 * This function will be depreciated in later releases.
+	 *
+	 * @param index index of the requested menuItem.
+	 * @return the menuItem at selected index.
+	 */
 	private MenuItemInterface selectMenuItem(int index) {
 
 		return menuItems.get(index);
