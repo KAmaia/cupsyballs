@@ -10,15 +10,14 @@ import com.kamaia.cupsyballs.states.abstracts.AbstractMenu;
 public class MainMenu extends AbstractMenu {
 
 	public MainMenu(GameWindow gw) {
-
+		//really all we do in the menu constructors is add the menu items.  AbstractMenu handles the rest.
 		super(gw);
-		// TODO Auto-generated constructor stub
 		menuItems.add(new NewGameMenuItem());
 		menuItems.add(new HighScoresMenuItem());
 		menuItems.add(new HelpMenuItem());
 		menuItems.add(new ExitGameMenuItem());
-		
-		
+
+
 	}
-	
+
 }

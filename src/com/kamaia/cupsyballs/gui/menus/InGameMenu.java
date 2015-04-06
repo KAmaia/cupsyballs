@@ -19,6 +19,6 @@ public class InGameMenu extends AbstractMenu {
 		menuItems.add(new ResumeGameMenuItem());
 		menuItems.add(new HelpMenuItem());
 		menuItems.add(new ExitGameMenuItem());
-		
+
 	}
 }

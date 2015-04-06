@@ -23,8 +23,8 @@ public class ResumeGameMenuItem implements MenuItemInterface {
 
 		// TODO Auto-generated method stub
 		state.setRunning(false);
-		
-		
+
+
 	}
 
 	@Override

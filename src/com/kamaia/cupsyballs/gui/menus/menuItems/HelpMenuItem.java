@@ -22,7 +22,7 @@ public class HelpMenuItem implements MenuItemInterface {
 	public void execute(GameWindow window, AbstractState state) {
 
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

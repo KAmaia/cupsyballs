@@ -31,7 +31,7 @@ public class ExitGameMenuItem implements MenuItemInterface {
 		// TODO Auto-generated method stub
 		bgColor = Color.RED;
 		fgColor = Color.BLUE;
-		
+
 	}
 
 	@Override

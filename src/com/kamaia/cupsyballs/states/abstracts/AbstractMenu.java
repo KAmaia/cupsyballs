@@ -1,15 +1,15 @@
 package com.kamaia.cupsyballs.states.abstracts;
 
-import java.util.ArrayList;
-
 import com.googlecode.lanterna.input.Key;
 import com.kamaia.cupsyballs.gui.GameWindow;
 import com.kamaia.cupsyballs.gui.menus.menuItems.interfaces.MenuItemInterface;
 
+import java.util.ArrayList;
+
 public abstract class AbstractMenu extends AbstractState {
 
-	int menuIndex = 0;
 	protected ArrayList<MenuItemInterface> menuItems = new ArrayList<MenuItemInterface>();
+	int menuIndex = 0;
 
 	public AbstractMenu(GameWindow window) {
 
@@ -56,8 +56,8 @@ public abstract class AbstractMenu extends AbstractState {
 		for (MenuItemInterface mii : menuItems) {
 			int centerXPos = (ts.getColumns() - mii.getItemString().length()) / 2;
 			gameScreen.putString(centerXPos, menuItemPosition,
-					mii.getItemString(), mii.getFgColor(),
-					mii.getBgColor());
+			                     mii.getItemString(), mii.getFgColor(),
+			                     mii.getBgColor());
 			menuItemPosition += 1;
 		}
 	}

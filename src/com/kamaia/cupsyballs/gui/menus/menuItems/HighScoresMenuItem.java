@@ -9,6 +9,7 @@ import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 public class HighScoresMenuItem implements MenuItemInterface {
 	private Color bgColor;
 	private Color fgColor;
+
 	@Override
 	public String getItemString() {
 
@@ -26,10 +27,10 @@ public class HighScoresMenuItem implements MenuItemInterface {
 	public void highlight() {
 
 		// TODO Auto-generated method stub
-		bgColor= Color.RED;
-		fgColor= Color.BLUE;
-		
-		
+		bgColor = Color.RED;
+		fgColor = Color.BLUE;
+
+
 	}
 
 	@Override
@@ -38,8 +39,9 @@ public class HighScoresMenuItem implements MenuItemInterface {
 		// TODO Auto-generated method stub
 		bgColor = Color.BLACK;
 		fgColor = Color.WHITE;
-		
+
 	}
+
 	@Override
 	public Color getFgColor() {
 

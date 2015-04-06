@@ -16,6 +16,6 @@ public class GameOverMenu extends AbstractMenu {
 		menuItems.add(new NewGameMenuItem());
 		menuItems.add(new HelpMenuItem());
 		menuItems.add(new ExitGameMenuItem());
-		
+
 	}
 }

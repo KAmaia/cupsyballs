@@ -8,18 +8,20 @@ import com.googlecode.lanterna.terminal.Terminal;
 public class GameWindow {
 	private Screen s;
 	private Terminal t;
-	public GameWindow(int rows, int cols){
+
+	public GameWindow(int rows, int cols) {
 		t = TerminalFacade.createSwingTerminal(rows, cols);
-		t.setCursorVisible(false);
-		s = new Screen(t); 
+
+		s = new Screen(t);
 	}
-	public Screen getScreen(){
+
+	public Screen getScreen() {
 		return s;
 	}
-	public Terminal getTerminal(){
+
+	public Terminal getTerminal() {
 		return t;
 	}
-	
 
-	
+
 }

@@ -14,7 +14,7 @@ public class Main {
 		MainMenu mm = new MainMenu(gw);
 		System.out.print("Game Running at: " + System.currentTimeMillis());
 		mm.run();
-		
+
 	}
 
 }
