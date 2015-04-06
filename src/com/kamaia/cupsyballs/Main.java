@@ -12,7 +12,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		GameWindow gw = new GameWindow(80, 40);
 		MainMenu mm = new MainMenu(gw);
-		System.out.print("Game Running at: " + System.currentTimeMillis());
+		System.out.println("Game Running at: " + System.currentTimeMillis());
 		mm.run();
 
 	}

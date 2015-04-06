@@ -59,7 +59,7 @@ public class InputHandler {
 	/**
 	 * This method handles input for various menus, and the game itself.  The sending state identifies iteslf when it calls
 	 * into inputHandler and Key k can never be null.
-	 *<p>
+	 * <p/>
 	 * After a small refactor this class looks much nicer.
 	 *
 	 * @param sendingState the abstract state that has asked inputHandler to handle input.
@@ -90,53 +90,26 @@ public class InputHandler {
 		// handle menu input
 		//pull the menu items from the sending menu.
 		menuItems = sendingState.getMenuItems();
-		//preset our previous and current menu items.
-		MenuItemInterface curMenuItem = menuItems.get(menuIndex);
-		MenuItemInterface preMenuItem = menuItems.get(menuItems.size() - 1);
-
 		switch (k.getKind()) {
-			case ArrowUp:
-				if (menuIndex > 0) {
-					menuIndex--;
-					//if we're not at the first entry in the list
-					//reduce our index by one, and set our current menu item to that index,
-					//and our previous menu item to the next one in the list.
-					preMenuItem = selectMenuItem(menuIndex + 1);
-					curMenuItem = selectMenuItem(menuIndex);
-				}
-				break;
 			case ArrowDown:
-				//BUG CHECK: Index loops past the last item in the list.
-				if (menuIndex <= menuItems.size() - 2) {
-					menuIndex++;
-
-					//if we're not at the last entry in the list
-					//increment our index by one, and set our current menu item to that index,
-					//and our previous menu item to the previous one in the list.
-					preMenuItem = selectMenuItem(menuIndex - 1);
-					curMenuItem = selectMenuItem(menuIndex);
-				}
+				sendingState.selectNextMenuItem(1);
+				break;
+			case ArrowUp:
+				sendingState.selectNextMenuItem(-1);
 				break;
 			case Enter:
-				//our execution method in the menuItemInterface
-				curMenuItem.execute(gameWindow, sendingState);
+				sendingState.executeCurrentItem(gameWindow, sendingState);
 				break;
+
 			default:
 				break;
 		}
 		//highlight our menu items.
-		curMenuItem.highlight();
-		preMenuItem.deHighlight();
 	}
 
 	/**
-	 * This function will be depreciated in later releases.
-	 *
-	 * @param index index of the requested menuItem.
-	 * @return the menuItem at selected index.
+	 * This Function was Deleted.  Fuck You, That's Why!
 	 */
-	private MenuItemInterface selectMenuItem(int index) {
 
-		return menuItems.get(index);
-	}
+
 }

@@ -10,6 +10,7 @@ public abstract class AbstractMenu extends AbstractState {
 
 	protected ArrayList<MenuItemInterface> menuItems = new ArrayList<MenuItemInterface>();
 	int menuIndex = 0;
+	MenuItemInterface selected;
 
 	public AbstractMenu(GameWindow window) {
 
@@ -51,7 +52,6 @@ public abstract class AbstractMenu extends AbstractState {
 
 	private void drawMenuItems() {
 
-		// TODO Auto-generated method stub
 		int menuItemPosition = (ts.getRows() - menuItems.size()) / 2;
 		for (MenuItemInterface mii : menuItems) {
 			int centerXPos = (ts.getColumns() - mii.getItemString().length()) / 2;
@@ -60,5 +60,39 @@ public abstract class AbstractMenu extends AbstractState {
 			                     mii.getBgColor());
 			menuItemPosition += 1;
 		}
+	}
+
+
+	public void selectNextMenuItem(int mod) {
+
+		if (mod == -1) {
+			if (menuIndex + mod >= 0) {
+				menuIndex -= 1;
+			}
+			else {
+				menuIndex = 0;
+			}
+		}
+		else if (mod == 1) {
+			if (menuIndex + mod <= menuItems.size() - 1) {
+				menuIndex += 1;
+			}
+			else {
+				menuIndex = menuItems.size() - 1;
+			}
+		}
+		MenuItemInterface selected = menuItems.get(menuIndex);
+		for (MenuItemInterface mii : menuItems) {
+			if (!mii.equals(selected)) {
+				mii.deHighlight();
+			}
+			else {
+				mii.highlight();
+			}
+		}
+	}
+
+	public void executeCurrentItem(GameWindow window, AbstractState state) {
+		menuItems.get(menuIndex).execute(window, state);
 	}
 }
