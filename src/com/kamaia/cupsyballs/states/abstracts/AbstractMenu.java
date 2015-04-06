@@ -10,13 +10,15 @@ public abstract class AbstractMenu extends AbstractState {
 
 	int menuIndex = 0;
 	protected ArrayList<MenuItemInterface> menuItems = new ArrayList<MenuItemInterface>();
-	
+
 	public AbstractMenu(GameWindow window) {
+
 		super(window);
 	}
-	
+
 	@Override
 	public void run() {
+
 		gameScreen.startScreen();
 		menuItems.get(0).highlight();
 		while (running) {
@@ -28,7 +30,7 @@ public abstract class AbstractMenu extends AbstractState {
 		}
 	}
 
-	private void updateScreen() {
+	protected void updateScreen() {
 
 		if (gameScreen.updateScreenSize()) {
 			gameScreen.clear();
@@ -41,19 +43,11 @@ public abstract class AbstractMenu extends AbstractState {
 			gameScreen.refresh();
 		}
 	}
-	
-	public ArrayList<MenuItemInterface> getMenuItems(){
+
+	public ArrayList<MenuItemInterface> getMenuItems() {
+
 		return menuItems;
 	}
-	
-	private void handleInput(Key k) {
-
-		System.out.println(menuItems.size());
-		
-		System.out.println("Index:\t" + menuIndex);
-	}
-
-	
 
 	private void drawMenuItems() {
 

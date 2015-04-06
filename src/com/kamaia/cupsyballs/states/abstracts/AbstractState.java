@@ -1,6 +1,5 @@
 package com.kamaia.cupsyballs.states.abstracts;
 
-import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.TerminalSize;
 import com.googlecode.lanterna.terminal.Terminal.Color;
@@ -28,13 +27,9 @@ public abstract class AbstractState {
 		//OVERRIDE THIS!!!
 	}
 	
-	private void updateScreen(){
-		//OVERRIDE THIS!!!
-	}
+	protected abstract void updateScreen();
 	
-	private void handleInput(AbstractState state, Key k){
-		inputhandler.handleInput(state, k);	
-	}
+	
 	public void setRunning(boolean setRunning){
 		running = setRunning;
 	}

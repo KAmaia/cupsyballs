@@ -1,9 +1,7 @@
 package com.kamaia.cupsyballs.states;
 
 import com.googlecode.lanterna.input.Key;
-import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal.Color;
-import com.googlecode.lanterna.terminal.TerminalSize;
 import com.kamaia.cupsyballs.gui.GameWindow;
 import com.kamaia.cupsyballs.gui.menus.GameOverMenu;
 import com.kamaia.cupsyballs.pieces.Cup;
@@ -94,7 +92,7 @@ public class Game extends AbstractState {
 		cup.updateX(level);
 	}
 
-	private void updateScreen() {
+	protected void updateScreen() {
 
 		// refreshes the entire screen. Lanterna is still a bit buggy
 		// though....have to report some of this.
