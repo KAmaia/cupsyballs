@@ -1,12 +1,13 @@
-package com.kamaia.cupsyballs.gui.menus.menuItems;
+package com.kamaia.cupsyballs.states.menus.menuItems;
 
 import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.gui.menus.menuItems.interfaces.MenuItemInterface;
 import com.kamaia.cupsyballs.states.abstracts.AbstractState;
+import com.kamaia.cupsyballs.states.menus.menuItems.interfaces.MenuItemInterface;
 
 
-public class HighScoresMenuItem implements MenuItemInterface {
+public class ResumeGameMenuItem implements MenuItemInterface {
+
 	private Color bgColor;
 	private Color fgColor;
 
@@ -14,13 +15,16 @@ public class HighScoresMenuItem implements MenuItemInterface {
 	public String getItemString() {
 
 		// TODO Auto-generated method stub
-		return "High Scores (Coming Soon!)";
+		return "Resume Game";
 	}
 
 	@Override
 	public void execute(GameWindow window, AbstractState state) {
 
 		// TODO Auto-generated method stub
+		state.setRunning(false);
+
+
 	}
 
 	@Override
@@ -29,8 +33,6 @@ public class HighScoresMenuItem implements MenuItemInterface {
 		// TODO Auto-generated method stub
 		bgColor = Color.RED;
 		fgColor = Color.BLUE;
-
-
 	}
 
 	@Override
@@ -39,7 +41,6 @@ public class HighScoresMenuItem implements MenuItemInterface {
 		// TODO Auto-generated method stub
 		bgColor = Color.BLACK;
 		fgColor = Color.WHITE;
-
 	}
 
 	@Override

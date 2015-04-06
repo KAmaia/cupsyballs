@@ -1,11 +1,11 @@
-package com.kamaia.cupsyballs.gui.menus;
+package com.kamaia.cupsyballs.states.menus;
 
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.gui.menus.menuItems.ExitGameMenuItem;
-import com.kamaia.cupsyballs.gui.menus.menuItems.HelpMenuItem;
-import com.kamaia.cupsyballs.gui.menus.menuItems.HighScoresMenuItem;
-import com.kamaia.cupsyballs.gui.menus.menuItems.NewGameMenuItem;
 import com.kamaia.cupsyballs.states.abstracts.AbstractMenu;
+import com.kamaia.cupsyballs.states.menus.menuItems.ExitGameMenuItem;
+import com.kamaia.cupsyballs.states.menus.menuItems.HelpMenuItem;
+import com.kamaia.cupsyballs.states.menus.menuItems.HighScoresMenuItem;
+import com.kamaia.cupsyballs.states.menus.menuItems.NewGameMenuItem;
 
 /**
  * Anyone remember me saying that my state classes have very little code in them?  Well here's proof.

@@ -1,7 +1,7 @@
 package com.kamaia.cupsyballs;
 
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.gui.menus.MainMenu;
+import com.kamaia.cupsyballs.states.menus.MainMenu;
 
 public class Main {
 

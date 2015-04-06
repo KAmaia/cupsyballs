@@ -1,9 +1,9 @@
-package com.kamaia.cupsyballs.gui.menus.menuItems;
+package com.kamaia.cupsyballs.states.menus.menuItems;
 
 import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.gui.menus.menuItems.interfaces.MenuItemInterface;
 import com.kamaia.cupsyballs.states.abstracts.AbstractState;
+import com.kamaia.cupsyballs.states.menus.menuItems.interfaces.MenuItemInterface;
 
 
 public class ExitGameMenuItem implements MenuItemInterface {

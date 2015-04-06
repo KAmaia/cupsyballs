@@ -3,17 +3,26 @@ package com.kamaia.cupsyballs.states;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.gui.menus.GameOverMenu;
+import com.kamaia.cupsyballs.helpers.HelperFuncs;
 import com.kamaia.cupsyballs.pieces.Players.Cup;
 import com.kamaia.cupsyballs.pieces.Players.Player;
+import com.kamaia.cupsyballs.pieces.obstacles.Obstacle;
 import com.kamaia.cupsyballs.states.abstracts.AbstractState;
+import com.kamaia.cupsyballs.states.menus.GameOverMenu;
 
+import java.util.ArrayList;
+
+/**
+ * posX = Horizontal
+ * posY = Vertical
+ */
 public class Game extends AbstractState {
 
 	private final Player player;
 	private final Cup    cup;
 	private       int    level;
-	private boolean paused = false;
+	private boolean             paused    = false;
+	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 
 	public Game(GameWindow window) {
 		super(window);
@@ -39,6 +48,7 @@ public class Game extends AbstractState {
 		while (running) {
 			//paused is set by pauseResume(), basically it gives us a second method to control the game logic,
 			//without shutting down the game by modifying boolean running.
+
 			while (!paused) {
 				long now = System.nanoTime();      // get the current nano time each loop.
 				delta += (now - lastTime) / ns;    // subtract our last time from it and divide it by our magic
@@ -46,6 +56,7 @@ public class Game extends AbstractState {
 				lastTime = now;                    // reset last time to this time.
 				if (delta >= 1) {                  // if our delta is greater than one allow the game to tick.
 					tick();                       // run our updates
+
 					delta = 0;                    // reset delta before the next game loop.
 				}
 			}
@@ -72,24 +83,37 @@ public class Game extends AbstractState {
 		 *
 		 */
 		gameScreen.getTerminal().setCursorVisible(false);
+
 		Key k = gameScreen.readInput();
 		if (k != null) {
 			inputhandler.handleInput(this, k);
 		}
+		if (checkObstacleCollisions()) {
+			System.out.println("BAM!");
+			reset();
+
+		}
 		if (checkWin()) {
 			levelUp();
 		}
+
+
 		else {
+
 			player.updateY(level);
 			updateCup();
 			updateScreen();
 		}
+
+
 	}
+
 
 	/**
 	 * Increases the level of the game.
 	 * Higher Levels = Higher Speeds. (To Encourage Power Up Use.)
 	 */
+
 	private void levelUp() {
 
 		// TODO Auto-generated method stub
@@ -97,8 +121,24 @@ public class Game extends AbstractState {
 		if (cup.getCupSize() >= 3) {
 			cup.modCupSize(-1);
 		}
+
+		if (level >= 3) {
+			//clear the obstacles array list
+			obstacles.clear();
+			generateObstacles(level);
+		}
 		player.setPosY(0);
 		player.updateScore(level);
+	}
+
+	private void generateObstacles(int levelRef) {
+		int numObstacles = HelperFuncs.newRandomInRange(10, 10 * levelRef);
+		for (int i = 0; i < numObstacles; i++) {
+			int posY = HelperFuncs.newRandomInRange(0, ts.getRows() - 10);
+			int posX = HelperFuncs.newRandomInRange(0, ts.getColumns());
+			System.out.println(posX + "||" + posY);
+			obstacles.add(new Obstacle(posX, posY, 0));
+		}
 	}
 
 	/**
@@ -134,11 +174,19 @@ public class Game extends AbstractState {
 		//properly otherwise.
 		else {
 			gameScreen.clear();
+			for (Obstacle o : obstacles) {
+				drawObstacle(o);
+			}
 			drawPlayer();
 			drawCup();
 			drawScoreBoard();
 			gameScreen.refresh();
 		}
+	}
+
+	private void drawObstacle(Obstacle o) {
+		gameScreen.putString((int) o.getPosX(), (int) o.getPosY(), o.getSymbol(), o.getBgColor(),
+		                     o.getFgColor());
 	}
 
 	private void drawPlayer() {
@@ -153,7 +201,6 @@ public class Game extends AbstractState {
 
 	/**
 	 * See this is what I mean.  This function is painfully obvious.  Draws the cup to the screen.
-	 *
 	 */
 	private void drawCup() {
 
@@ -177,25 +224,39 @@ public class Game extends AbstractState {
 		}
 		else if ((int) player.getPosY() >= (int) cup.getPosY()
 			   && (int) player.getPosX() != (int) cup.getPosX()) {
-			if (player.getLives() > 0) {
-				player.setLives(-1);
+			if (player.getLives() >= 0) {
 				reset();
-			}
-			else {
-				GameOverMenu gom = new GameOverMenu(gw);
-				gom.run();
 			}
 		}
 		return false;
 	}
 
+	private boolean checkObstacleCollisions() {
+		boolean objectCollision = false;
+		for (Obstacle o : obstacles) {
+			if (((int) player.getPosY() == (int) o.getPosY()) && ((int) player.getPosX() >= (int) o.getPosX()) && (int) player.getPosX() <= (int) o.getPosX() + o.getLength()) {
+				objectCollision = true;
+			}
+		}
+		return objectCollision;
+	}
+
 	/**
 	 * Resets the Player's Postion back to the top of the board
 	 */
-	private void reset() {
 
-		player.setPosX(ts.getColumns() / 2);
-		player.setPosY(0);
+	private void reset() {
+		if (player.getLives() > 0) {
+			player.setLives(-1);
+			player.deathScore();
+
+			player.setPosX(ts.getColumns() / 2);
+			player.setPosY(0);
+		}
+		else if (player.getLives() <= 0) {
+			GameOverMenu gom = new GameOverMenu(gw);
+			gom.run();
+		}
 	}
 
 	/**

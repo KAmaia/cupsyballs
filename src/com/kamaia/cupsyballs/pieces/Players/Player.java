@@ -51,6 +51,10 @@ public class Player extends AbstractPiece {
 
 	}
 
+	public void deathScore() {
+		score -= 1;
+	}
+
 	/**
 	 * really?
 	 * @param posX sets the players new posX

@@ -2,7 +2,7 @@ package com.kamaia.cupsyballs.states.abstracts;
 
 import com.googlecode.lanterna.input.Key;
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.gui.menus.menuItems.interfaces.MenuItemInterface;
+import com.kamaia.cupsyballs.states.menus.menuItems.interfaces.MenuItemInterface;
 
 import java.util.ArrayList;
 

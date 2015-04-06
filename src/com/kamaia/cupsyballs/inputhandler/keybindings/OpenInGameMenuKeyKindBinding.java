@@ -2,9 +2,9 @@ package com.kamaia.cupsyballs.inputhandler.keybindings;
 
 import com.googlecode.lanterna.input.Key;
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.gui.menus.InGameMenu;
 import com.kamaia.cupsyballs.inputhandler.gamekeybindinginterface.GameKeyKindBindingInterface;
 import com.kamaia.cupsyballs.states.Game;
+import com.kamaia.cupsyballs.states.menus.InGameMenu;
 
 /**
  * Created by Krystal on 4/6/2015.
