@@ -9,13 +9,13 @@ import com.kamaia.cupsyballs.inputhandler.InputHandler;
 
 public abstract class AbstractState {
 	//Holds all the information for different states.
-	protected GameWindow   gw;
-	protected Screen       gameScreen;
-	protected boolean      running;
-	protected InputHandler inputhandler;
-	protected TerminalSize ts;
+	protected final GameWindow   gw;
+	protected final InputHandler inputhandler;
+	protected final TerminalSize ts;
+	protected       Screen       gameScreen;
+	protected       boolean      running;
 
-	public AbstractState(GameWindow window) {
+	protected AbstractState(GameWindow window) {
 
 		gw = window;
 		gameScreen = gw.getScreen();
@@ -24,18 +24,26 @@ public abstract class AbstractState {
 		running = true;
 	}
 
-	//THIS FUNCTION MUST BE OVERRIDDEN!
-	protected abstract void run();
+	/**
+	 * MUST BE OVERLOADED
+	 */
 
-	//THIS FUNCTION MUST BE OVERRIDDEN!
 	protected abstract void updateScreen();
 
-
+	/**
+	 * sets the running status of the non-abstract state
+	 *
+	 * @param setRunning (really?!?)
+	 */
 	public void setRunning(boolean setRunning) {
 		//sets the running status of the state
 		running = setRunning;
 	}
 
+	/**
+	 * Does One Last update and prints GoodBye!.
+	 * Shuts down the terminal.
+	 */
 	public void shutdown() {
 		// terminates curses mode.
 		gameScreen.clear();

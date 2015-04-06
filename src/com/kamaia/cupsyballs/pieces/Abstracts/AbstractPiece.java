@@ -6,15 +6,23 @@ import com.googlecode.lanterna.terminal.Terminal;
  * Created by Krystal on 4/5/2015.
  */
 public class AbstractPiece {
-	protected String         symbol;
-	protected float          posX;
-	protected float          posY;
-	protected float          speed;
-	protected Terminal.Color bgColor;
-	protected Terminal.Color fgColor;
+	protected final float          speed;
+	private final   Terminal.Color bgColor;
+	private final   Terminal.Color fgColor;
+	protected       String         symbol;
+	protected       float          posX;
+	protected       float          posY;
 
-
-	public AbstractPiece(float posX, float posY, float speed, Terminal.Color bgColor, Terminal.Color fgColor) {
+	/**
+	 * Constructor
+	 *
+	 * @param posX    starting position on the X axis.
+	 * @param posY    starting position on the Y axis.
+	 * @param speed   starting speed.  In float format.
+	 * @param bgColor Terminal.Color for background.
+	 * @param fgColor Terminal.Color for foreground.
+	 */
+	protected AbstractPiece(float posX, float posY, float speed, Terminal.Color bgColor, Terminal.Color fgColor) {
 		this.posX = posX;
 		this.posY = posY;
 		this.speed = speed;
@@ -38,20 +46,12 @@ public class AbstractPiece {
 		return posX;
 	}
 
-	public void setPosX(int posX) {
-
-		// TODO Auto-generated method stub
-		this.posX = posX;
-
-	}
-
 	public float getPosY() {
 		return posY;
 	}
 
 	public void setPosY(int posY) {
 
-		// TODO Auto-generated method stub
 		this.posY = posY;
 	}
 

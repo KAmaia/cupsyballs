@@ -7,20 +7,25 @@ import com.kamaia.cupsyballs.gui.menus.menuItems.interfaces.MenuItemInterface;
 import java.util.ArrayList;
 
 public abstract class AbstractMenu extends AbstractState {
+	/**
+	 * menuItems arrayList of menuItemInterfaces;
+	 * menuIndex should really probably move.
+	 */
+	protected final ArrayList<MenuItemInterface> menuItems = new ArrayList<MenuItemInterface>();
+	private         int                          menuIndex = 0;
 
-	protected ArrayList<MenuItemInterface> menuItems = new ArrayList<MenuItemInterface>();
-	int menuIndex = 0;
-	MenuItemInterface selected;
-
-	public AbstractMenu(GameWindow window) {
+	protected AbstractMenu(GameWindow window) {
 
 		super(window);
 	}
 
-	@Override
+	/**
+	 *  Starts the game loop.
+	 */
 	public void run() {
 
 		gameScreen.startScreen();
+
 		menuItems.get(0).highlight();
 		while (running) {
 			Key k = gameScreen.readInput();
@@ -31,6 +36,9 @@ public abstract class AbstractMenu extends AbstractState {
 		}
 	}
 
+	/**
+	 * Updates the game screen each tick.  If the game window gets resized, resizes the virtual terminal to fit.
+	 */
 	protected void updateScreen() {
 
 		if (gameScreen.updateScreenSize()) {
@@ -45,11 +53,10 @@ public abstract class AbstractMenu extends AbstractState {
 		}
 	}
 
-	public ArrayList<MenuItemInterface> getMenuItems() {
-
-		return menuItems;
-	}
-
+	/**
+	 * Draws the Menu Text centered on the screen.
+	 *
+	 */
 	private void drawMenuItems() {
 
 		int menuItemPosition = (ts.getRows() - menuItems.size()) / 2;
@@ -62,6 +69,11 @@ public abstract class AbstractMenu extends AbstractState {
 		}
 	}
 
+	/**
+	 * Selects the next menu item and highlights it.
+	 *
+	 * @param mod if positive 1 moves up the list, if -1 moves down the list
+	 */
 
 	public void selectNextMenuItem(int mod) {
 
@@ -92,6 +104,12 @@ public abstract class AbstractMenu extends AbstractState {
 		}
 	}
 
+	/**
+	 * executes the currently selected menu item on the game window.
+	 *
+	 * @param window the window on which the item is being executed
+	 * @param state the (abstract)state requesting execution.
+	 */
 	public void executeCurrentItem(GameWindow window, AbstractState state) {
 		menuItems.get(menuIndex).execute(window, state);
 	}

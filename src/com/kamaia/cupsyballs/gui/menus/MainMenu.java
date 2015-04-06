@@ -7,6 +7,11 @@ import com.kamaia.cupsyballs.gui.menus.menuItems.HighScoresMenuItem;
 import com.kamaia.cupsyballs.gui.menus.menuItems.NewGameMenuItem;
 import com.kamaia.cupsyballs.states.abstracts.AbstractMenu;
 
+/**
+ * Anyone remember me saying that my state classes have very little code in them?  Well here's proof.
+ * adds the menuItems to the menu.  (Exactly the same for all the other menus. (Procedure wise, not content.)
+ * So I'm not going to bother with more than, "See MainMenu.Java"
+ */
 public class MainMenu extends AbstractMenu {
 
 	public MainMenu(GameWindow gw) {

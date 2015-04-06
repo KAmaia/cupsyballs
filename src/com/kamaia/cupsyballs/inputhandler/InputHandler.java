@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class InputHandler {
 	//this class really needs something.
 
-	private ArrayList<GameKeyKindBindingInterface> gameKeyKindBindings = new ArrayList<GameKeyKindBindingInterface>();
-	private ArrayList<GameKeyCharBindingInterface> gameKeyCharBindings = new ArrayList<GameKeyCharBindingInterface>();
+	private final ArrayList<GameKeyKindBindingInterface> gameKeyKindBindings = new ArrayList<GameKeyKindBindingInterface>();
+	private final ArrayList<GameKeyCharBindingInterface> gameKeyCharBindings = new ArrayList<GameKeyCharBindingInterface>();
 
-	private GameWindow   gameWindow;
+	private final GameWindow gameWindow;
 
 	/**
 	 * @param window the main game window.
@@ -34,6 +34,9 @@ public class InputHandler {
 		populateBindings();
 	}
 
+	/**
+	 * When you create a new binding make sure you add it here, even if it doesn't bind to a key.
+	 */
 	private void populateBindings() {
 		//Add Our KeyKindBindings to the ArrayList;
 		gameKeyKindBindings.add(new MovePlayerLeftKeyKindBinding());

@@ -13,7 +13,7 @@ public class MovePlayerDownKeyKindBinding implements GameKeyKindBindingInterface
 
 	@Override
 	public void execute(GameWindow window, Game sendingState) {
-		if (sendingState instanceof Game) {
+		if (sendingState != null) {
 			sendingState.getPlayer().moveDown();
 		}
 	}

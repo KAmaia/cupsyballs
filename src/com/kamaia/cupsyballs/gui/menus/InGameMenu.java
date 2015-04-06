@@ -8,6 +8,9 @@ import com.kamaia.cupsyballs.gui.menus.menuItems.ResumeGameMenuItem;
 import com.kamaia.cupsyballs.states.abstracts.AbstractMenu;
 import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 
+/**
+ * See MainMenu.Java
+ */
 
 public class InGameMenu extends AbstractMenu {
 

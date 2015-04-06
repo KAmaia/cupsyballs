@@ -6,6 +6,9 @@ import com.kamaia.cupsyballs.gui.menus.menuItems.HelpMenuItem;
 import com.kamaia.cupsyballs.gui.menus.menuItems.NewGameMenuItem;
 import com.kamaia.cupsyballs.states.abstracts.AbstractMenu;
 
+/**
+ * See MainMenu.Java
+ */
 
 public class GameOverMenu extends AbstractMenu {
 

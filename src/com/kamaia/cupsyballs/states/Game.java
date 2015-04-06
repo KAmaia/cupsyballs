@@ -10,10 +10,9 @@ import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 
 public class Game extends AbstractState {
 
-	final double ticks = 60d;  //Update 60 times a second.  (You'll see it in tick())
-	private Player player;
-	private Cup cup;
-	private int level;
+	private final Player player;
+	private final Cup    cup;
+	private       int    level;
 	private boolean paused = false;
 
 	public Game(GameWindow window) {
@@ -24,11 +23,14 @@ public class Game extends AbstractState {
 		level = 1;
 	}
 
-	@Override
+	/**
+	 * The main game loop.
+	 */
 	public void run() {
 
 		//The Main Game Loop
 		long lastTime = System.nanoTime(); // get the nano time the first time the loop is run.
+		double ticks = 60d;                // how many ticks per second do we want?  higher = faster.
 		double ns = 1000000000 / ticks;    // ns is the number of nano seconds per second,
 		// divided by the number of updates per second we want.
 		double delta = 0;                  // delta is our controlling time measurement.
@@ -84,6 +86,10 @@ public class Game extends AbstractState {
 		}
 	}
 
+	/**
+	 * Increases the level of the game.
+	 * Higher Levels = Higher Speeds. (To Encourage Power Up Use.)
+	 */
 	private void levelUp() {
 
 		// TODO Auto-generated method stub
@@ -95,6 +101,11 @@ public class Game extends AbstractState {
 		player.updateScore(level);
 	}
 
+	/**
+	 * Updates the postion of the cup on the screen.
+	 * If the cup reaches an edge cup.toggleLeft is called to change its direction.
+	 * Passes Level to adjust cup speed.
+	 */
 	private void updateCup() {
 
 		// updates the cups position on the screen
@@ -105,6 +116,11 @@ public class Game extends AbstractState {
 		cup.updateX(level);
 	}
 
+	/**
+	 * Checks to see if the screen's size has changed. If it has, it does a refresh cycle and moves the cup to the
+	 * appropriate y location.
+	 * Updates the game screen.
+	 */
 	protected void updateScreen() {
 
 		//Checks to see if the screen has been resized since the last draw cycle.  If so, it updates the position of
@@ -135,22 +151,25 @@ public class Game extends AbstractState {
 		                     player.getSymbol(), player.getBgColor(), player.getFgColor());
 	}
 
+	/**
+	 * See this is what I mean.  This function is painfully obvious.  Draws the cup to the screen.
+	 *
+	 */
 	private void drawCup() {
 
 		gameScreen.putString((int) cup.getPosX(), (int) cup.getPosY(),
 		                     cup.getSymbol(), Color.BLUE, Color.BLACK);
 	}
 
+	/**
+	 * Checks to see if the ball is in the cup.
+	 * If it is, it resets the player's position to the top of the screen, and increments the player's score.
+	 * If Not it checks the remaining number of lives, if there are lives remaining, it resets the player to the
+	 * top of the screen and decrements the player's lives by 1.  If the player is out of lives, it runs the
+	 * GameOverMenu state.
+	 */
 	private boolean checkWin() {
-		/**
-		 *
-		 * Checks to see if the ball is in the cup.
-		 * If it is, it resets the player's position to the top of the screen, and increments the player's score.
-		 * If Not it checks the remaining number of lives, if there are lives remaining, it resets the player to the
-		 * top of the screen and decrements the player's lives by 1.  If the player is out of lives, it runs the
-		 * GameOverMenu state.
-		 *
-		 */
+
 		if ((int) player.getPosX() >= (int) cup.getPosX()
 			   && player.getPosX() <= cup.getPosX() + cup.getCupSize()
 			   && (int) player.getPosY() == (int) cup.getPosY()) {
@@ -170,23 +189,21 @@ public class Game extends AbstractState {
 		return false;
 	}
 
+	/**
+	 * Resets the Player's Postion back to the top of the board
+	 */
 	private void reset() {
-		/**
-		 *
-		 * Resets the Player's Postion back to the top of the board
-		 *
-		 */
+
 		player.setPosX(ts.getColumns() / 2);
 		player.setPosY(0);
 	}
 
+	/**
+	 * Draws The Scoreboard on the bottom of the screen.
+	 * seriously, this is pretty self commenting, isn't it?
+	 */
 	private void drawScoreBoard() {
-		/**
-		 *
-		 * Draws The Scoreboard on the bottom of the screen.
-		 * seriously, this is pretty self commenting, isn't it?
-		 *
-		 */
+
 		String divider = "";
 		String scoreBoard = "Level: " + level + "\tScore: "
 			   + player.getScore() + "\tLives Remaining: " + player.getLives();
@@ -202,12 +219,11 @@ public class Game extends AbstractState {
 		                     ts.getRows() - 1, menuString, Color.GREEN, Color.BLACK);
 	}
 
+	/**
+	 * Toggles Whether Or Not The State Is Paused;
+	 */
 	public void pauseResume() {
-		/**
-		 *
-		 * Toggles Whether Or Not The State Is Paused;
-		 *
-		 * */
+
 		paused = !paused;
 	}
 }
