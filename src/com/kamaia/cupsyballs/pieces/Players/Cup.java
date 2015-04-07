@@ -77,4 +77,7 @@ public class Cup extends AbstractPiece {
 		symbol += "|";
 	}
 
+	public void update(int mapLevel) {
+		updateX(mapLevel);
+	}
 }

@@ -1,6 +1,5 @@
 package com.kamaia.cupsyballs.pieces.obstacles;
 
-import com.googlecode.lanterna.terminal.Terminal;
 import com.kamaia.cupsyballs.helpers.HelperFuncs;
 import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPiece;
 
@@ -10,20 +9,43 @@ import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPiece;
  */
 
 public class Obstacle extends AbstractPiece {
-	String[] symbols = {"=", "+", "*", "#"};
 	private int length;
+	private int center;
 
-	public Obstacle(int posX, int posY, float speed) {
-		super(posX, posY, speed, Terminal.Color.BLUE, Terminal.Color.BLACK);
-		length = HelperFuncs.newRandomInRange(1, 5);
-		String selectedSymbol = symbols[HelperFuncs.newRandomInRange(0, symbols.length - 1)];
-		symbol = "";
-		for (int i = 0; i < length; i++) {
-			symbol += selectedSymbol;
-		}
+	private Obstacle(ObstacleBuilder builder){
+		this.symbol = builder.symbol;
+		this.length = builder.length;
+		this.center = builder.center;
 	}
 
 	public int getLength() {
 		return length;
+	}
+	public String getSymbol(){
+		return symbol;
+	}
+
+	public static class ObstacleBuilder{
+		private int length;
+		private int center;
+		private String symbol;
+
+		public ObstacleBuilder setLengthAndCenter(){
+			length = HelperFuncs.newRandomInRange(1, 5);
+			center = length / 2;
+			return this;
+		}
+		public ObstacleBuilder setSymbol(String symbol){
+			this.symbol = "";
+			for(int i = 0; i < length; i++){
+				this.symbol+=symbol;
+			}
+			return this;
+		}
+
+
+		public Obstacle Build(){
+			return new Obstacle(this);
+		}
 	}
 }

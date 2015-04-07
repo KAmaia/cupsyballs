@@ -75,4 +75,11 @@ public class Player extends AbstractPiece {
 		posY += 1;
 
 	}
+	public void update(int mapLevel){
+		if(lives > 0) {
+			updateY(mapLevel);
+		}
+	}
+
 }
+

@@ -16,7 +16,7 @@ public class AbstractPowerUp extends AbstractPiece {
 	 * @param fgColor
 	 */
 
-	public AbstractPowerUp(float posX, float posY, float speed, Terminal.Color bgColor,
+	public AbstractPowerUp(int posX, int posY, float speed, Terminal.Color bgColor,
 	                       Terminal.Color fgColor) {
 		super(posX, posY, speed, bgColor, fgColor);
 	}

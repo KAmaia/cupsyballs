@@ -7,6 +7,7 @@ import com.kamaia.cupsyballs.helpers.HelperFuncs;
 import com.kamaia.cupsyballs.pieces.Players.Cup;
 import com.kamaia.cupsyballs.pieces.Players.Player;
 import com.kamaia.cupsyballs.pieces.obstacles.Obstacle;
+import com.kamaia.cupsyballs.pieces.obstacles.obstaclebuilder.ObstacleBuilder;
 import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 import com.kamaia.cupsyballs.states.menus.GameOverMenu;
 
@@ -39,7 +40,7 @@ public class Game extends AbstractState {
 
 		//The Main Game Loop
 		long lastTime = System.nanoTime(); // get the nano time the first time the loop is run.
-		double ticks = 60d;                // how many ticks per second do we want?  higher = faster.
+		double ticks = 140d;                // how many ticks per second do we want?  higher = faster.
 		double ns = 1000000000 / ticks;    // ns is the number of nano seconds per second,
 		// divided by the number of updates per second we want.
 		double delta = 0;                  // delta is our controlling time measurement.
@@ -54,7 +55,7 @@ public class Game extends AbstractState {
 				delta += (now - lastTime) / ns;    // subtract our last time from it and divide it by our magic
 				// update number
 				lastTime = now;                    // reset last time to this time.
-				if (delta >= 1) {                  // if our delta is greater than one allow the game to tick.
+				if (delta >= 2) {                  // if our delta is greater than one allow the game to tick.
 					tick();                       // run our updates
 
 					delta = 0;                    // reset delta before the next game loop.
@@ -73,41 +74,28 @@ public class Game extends AbstractState {
 		return player;
 	}
 
+	/**
+	 * The Heart and soul of the game loop.  Tick() is responsible for telling the game to update
+	 * pretty much everything, including input, "win" conditions, and levelling up the game.
+	 * A bug in Lanterna is currently preventing the cursor from ACTUALLY becoming invisible.
+	 * I've filed bug reports, hopefully it's fixed soon.
+	 */
 	private void tick() {
-		/**
-		 *
-		 * The Heart and soul of the game loop.  Tick() is responsible for telling the game to update
-		 * pretty much everything, including input, "win" conditions, and levelling up the game.
-		 * A bug in Lanterna is currently preventing the cursor from ACTUALLY becoming invisible.
-		 * I've filed bug reports, hopefully it's fixed soon.
-		 *
-		 */
-		gameScreen.getTerminal().setCursorVisible(false);
-
 		Key k = gameScreen.readInput();
 		if (k != null) {
 			inputhandler.handleInput(this, k);
 		}
 		if (checkObstacleCollisions()) {
-			System.out.println("BAM!");
 			reset();
-
 		}
 		if (checkWin()) {
 			levelUp();
 		}
-
-
-		else {
-
-			player.updateY(level);
-			updateCup();
-			updateScreen();
-		}
-
-
+		player.update(level);
+		updateCup();
+		cup.update(level); //todo: pass in a MAP argument.
+		updateScreen();
 	}
-
 
 	/**
 	 * Increases the level of the game.
@@ -134,10 +122,7 @@ public class Game extends AbstractState {
 	private void generateObstacles(int levelRef) {
 		int numObstacles = HelperFuncs.newRandomInRange(10, 10 * levelRef);
 		for (int i = 0; i < numObstacles; i++) {
-			int posY = HelperFuncs.newRandomInRange(0, ts.getRows() - 10);
-			int posX = HelperFuncs.newRandomInRange(0, ts.getColumns());
-			System.out.println(posX + "||" + posY);
-			obstacles.add(new Obstacle(posX, posY, 0));
+			obstacles.add(new ObstacleBuilder().build());
 		}
 	}
 
@@ -145,6 +130,8 @@ public class Game extends AbstractState {
 	 * Updates the postion of the cup on the screen.
 	 * If the cup reaches an edge cup.toggleLeft is called to change its direction.
 	 * Passes Level to adjust cup speed.
+	 * <p/>
+	 * TODO: Move this functionality into the Cup.update() method after creating a real map.
 	 */
 	private void updateCup() {
 
@@ -153,7 +140,6 @@ public class Game extends AbstractState {
 			   || cup.getPosX() <= 0) {
 			cup.toggleLeft();
 		}
-		cup.updateX(level);
 	}
 
 	/**
@@ -268,7 +254,7 @@ public class Game extends AbstractState {
 		String divider = "";
 		String scoreBoard = "Level: " + level + "\tScore: "
 			   + player.getScore() + "\tLives Remaining: " + player.getLives();
-		String menuString = "(ESC) to quit";
+		String menuString = "(ESC) For Menu";
 		for (int i = 0; i <= ts.getColumns(); i++) {
 			divider += "=";
 		}
