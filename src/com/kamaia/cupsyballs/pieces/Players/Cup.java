@@ -7,7 +7,7 @@ public class Cup extends AbstractPlayer {
 
 	private int     cupSize;
 	private boolean movingLeft;
-	private int speed = 1;
+
 
 	/**
 	 * cupsize sets the cups width.  It shrinks each level.
@@ -19,7 +19,7 @@ public class Cup extends AbstractPlayer {
 	 * @param fgColor same as abstract piece.
 	 */
 	public Cup(int posX, int posY, Terminal.Color bgColor, Terminal.Color fgColor) {
-		super(posX, posY, .25f, bgColor, fgColor);
+		super(posX, posY, .25f, Terminal.Color.RED, fgColor);
 		cupSize = 7;
 		symbol = "|";
 		for (int i = 0; i < cupSize; i++) {
@@ -40,8 +40,6 @@ public class Cup extends AbstractPlayer {
 
 	/**
 	 * moves the cup in the appropriate direction based on movingLeft.
-	 *
-	 * @param level is passed in to adjust the speed of the cup.  The higher the level, the faster it goes!!!
 	 */
 	public void updateX() {
 		if (!movingLeft) {
@@ -86,6 +84,6 @@ public class Cup extends AbstractPlayer {
 	}
 
 	public void levelUp() {
-		speed += 1;
+		speed += .5 * speed;
 	}
 }

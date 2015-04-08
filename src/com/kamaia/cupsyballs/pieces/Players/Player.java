@@ -73,14 +73,23 @@ public class Player extends AbstractPlayer {
 	public void moveDown() {
 
 		// TODO Auto-generated method stub
-		posY += 1;
+		posY += speed;
 
 	}
-	public void update(int mapLevel){
-		if(lives >= 0) {
-			updateY(mapLevel);
-		}
+	public void update(){
+		moveDown();
 	}
 
+	public void moveLeft() {
+		posX -= 1;
+	}
+
+	public void moveRight() {
+		posX += 1;
+	}
+
+	public void addLife() {
+		lives+=1;
+	}
 }
 

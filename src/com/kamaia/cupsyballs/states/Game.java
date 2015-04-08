@@ -3,13 +3,13 @@ package com.kamaia.cupsyballs.states;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.kamaia.cupsyballs.gui.GameWindow;
+import com.kamaia.cupsyballs.level.Level;
+import com.kamaia.cupsyballs.level.map.Map;
 import com.kamaia.cupsyballs.level.pieces.obstacles.Obstacle;
 import com.kamaia.cupsyballs.pieces.Players.Cup;
 import com.kamaia.cupsyballs.pieces.Players.Player;
 import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 import com.kamaia.cupsyballs.states.menus.GameOverMenu;
-
-import java.util.ArrayList;
 
 /**
  * posX = Horizontal
@@ -19,23 +19,28 @@ public class Game extends AbstractState {
 
 	private final Player player;
 	private final Cup    cup;
-	private       int    level;
-	private boolean             paused    = false;
-	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
+	private       int    gameLevel;
+	private       Level  level;
+	private       Map    map;
+	private boolean paused = false;
 
 	public Game(GameWindow window) {
 		super(window);
+
 		gameScreen = window.getScreen();
 		player = new Player(gameScreen.getTerminalSize().getColumns() / 2, 3);
 		cup = new Cup(ts.getColumns() / 2, ts.getRows() - 4, Color.BLACK, Color.BLUE);
-		level = 1;
+		gameLevel = 1;
 	}
 
 	/**
 	 * The main game loop.
 	 */
 	public void run() {
-
+		//Build the first level, and map
+		level = new Level.LevelBuilder().setSize(ts.getRows(), ts.getColumns()).buildObstacles(10).placeObstacles()
+		                                .Build();
+		map = level.getLevelMap();
 		//The Main Game Loop
 		long lastTime = System.nanoTime(); // get the nano time the first time the loop is run.
 		double ticks = 140d;                // how many ticks per second do we want?  higher = faster.
@@ -83,37 +88,41 @@ public class Game extends AbstractState {
 		if (k != null) {
 			inputhandler.handleInput(this, k);
 		}
-		/*if (checkObstacleCollisions()) {
-			reset();
-		}
-		*/
 		if (checkWin()) {
 			levelUp();
 		}
-		player.update(level);
+		player.update();
 		updateCup();
-		cup.update(level); //todo: pass in a MAP argument.
+		cup.update(); //todo: pass in a MAP argument.
 		updateScreen();
 	}
 
+	private void drawMap() {
+		for (int i = 0; i < level.getSizeH(); i++) {
+			gameScreen.putString(0, i, map.getString(i), Color.YELLOW, Color.BLACK);
+		}
+	}
+
 	/**
-	 * Increases the level of the game.
+	 * Increases the gameLevel of the game.
 	 * Higher Levels = Higher Speeds. (To Encourage Power Up Use.)
 	 */
 
 	private void levelUp() {
 
 		// TODO Auto-generated method stub
-		level++;
+		gameLevel++;
 		if (cup.getCupSize() >= 3) {
 			cup.modCupSize(-1);
+		}
+		if (gameLevel >= 3) {
+			player.addLife();
 		}
 
 		player.setPosY(0);
 		cup.levelUp();
-		player.updateScore(level);
+		player.updateScore(gameLevel);
 	}
-
 
 
 	/**
@@ -121,13 +130,12 @@ public class Game extends AbstractState {
 	 * If the cup reaches an edge cup.toggleLeft is called to change its direction.
 	 * Passes Level to adjust cup speed.
 	 * <p/>
-	 * TODO: Move this functionality into the Cup.update() method after creating a real level.
+	 * TODO: Move this functionality into the Cup.update() method after creating a real gameLevel.
 	 */
 	private void updateCup() {
 
 		// updates the cups position on the screen
-		if (cup.getPosX() + cup.getCupSize() + 1 >= ts.getColumns() - 1
-			   || cup.getPosX() <= 0) {
+		if (cup.getPosX() + cup.getCupSize() + 1 >= ts.getColumns() - 1 || cup.getPosX() <= 0) {
 			cup.toggleLeft();
 		}
 	}
@@ -153,11 +161,11 @@ public class Game extends AbstractState {
 
 			drawPlayer();
 			drawCup();
+			drawMap();
 			drawScoreBoard();
 			gameScreen.refresh();
 		}
 	}
-
 
 
 	private void drawPlayer() {
@@ -166,8 +174,8 @@ public class Game extends AbstractState {
 		 * draws the player to the game screen.  Pretty self explanatory.
 		 *
 		 */
-		gameScreen.putString((int) player.getPosX(), (int) player.getPosY(),
-		                     player.getSymbol(), player.getBgColor(), player.getFgColor());
+		gameScreen.putString((int) player.getPosX(), (int) player.getPosY(), player.getSymbol(), player.getBgColor(),
+		                     player.getFgColor());
 	}
 
 	/**
@@ -175,8 +183,7 @@ public class Game extends AbstractState {
 	 */
 	private void drawCup() {
 
-		gameScreen.putString((int) cup.getPosX(), (int) cup.getPosY(),
-		                     cup.getSymbol(), Color.BLUE, Color.BLACK);
+		gameScreen.putString((int) cup.getPosX(), (int) cup.getPosY(), cup.getSymbol(), Color.BLUE, Color.BLACK);
 	}
 
 	/**
@@ -188,13 +195,12 @@ public class Game extends AbstractState {
 	 */
 	private boolean checkWin() {
 
-		if ((int) player.getPosX() >= (int) cup.getPosX()
-			   && player.getPosX() <= cup.getPosX() + cup.getCupSize()
-			   && (int) player.getPosY() == (int) cup.getPosY()) {
+		if ((int) player.getPosX() >= (int) cup.getPosX() && player.getPosX() <= cup.getPosX() + cup
+			   .getCupSize() && (int) player.getPosY() == (int) cup.getPosY()) {
 			return true;
 		}
-		else if ((int) player.getPosY() >= (int) cup.getPosY()
-			   && (int) player.getPosX() != (int) cup.getPosX()) {
+		else if ((int) player.getPosY() >= (int) cup.getPosY() && (int) player.getPosX() != (int) cup
+			   .getPosX() || checkObstacleCollisions()) {
 			if (player.getLives() >= 0) {
 				reset();
 			}
@@ -202,16 +208,19 @@ public class Game extends AbstractState {
 		return false;
 	}
 
-	/*private boolean checkObstacleCollisions() {
+	private boolean checkObstacleCollisions() {
 		boolean objectCollision = false;
-		for (Obstacle o : obstacles) {
-			if (((int) player.getPosY() == (int) o.getPosY()) && ((int) player.getPosX() >= (int) o.getPosX()) && (int) player.getPosX() <= (int) o.getPosX() + o.getLength()) {
+
+		for (Obstacle o : level.getObstacles()) {
+			int oEnd = o.getPosX() + o.getLength();
+			if (((int) player.getPosY() == o.getPosY()) && (((int) player.getPosX() >= o.getPosX()) && ((int) player
+				   .getPosX() <= oEnd))) {
 				objectCollision = true;
 			}
 		}
 		return objectCollision;
 	}
-	*/
+
 	/**
 	 * Resets the Player's Postion back to the top of the board
 	 */
@@ -237,18 +246,17 @@ public class Game extends AbstractState {
 	private void drawScoreBoard() {
 
 		String divider = "";
-		String scoreBoard = "Level: " + level + "\tScore: "
-			   + player.getScore() + "\tLives Remaining: " + player.getLives();
+		String scoreBoard = "Level: " + gameLevel + "\tScore: " + player.getScore() + "\tLives Remaining: " + player
+			   .getLives();
 		String menuString = "(ESC) For Menu";
 		for (int i = 0; i <= ts.getColumns(); i++) {
 			divider += "=";
 		}
-		gameScreen.putString(0, ts.getRows() - 3, divider, Color.RED,
+		gameScreen.putString(0, ts.getRows() - 3, divider, Color.RED, Color.BLACK);
+		gameScreen.putString((ts.getColumns() - scoreBoard.length()) / 2, ts.getRows() - 2, scoreBoard, Color.GREEN,
 		                     Color.BLACK);
-		gameScreen.putString((ts.getColumns() - scoreBoard.length()) / 2,
-		                     ts.getRows() - 2, scoreBoard, Color.GREEN, Color.BLACK);
-		gameScreen.putString((ts.getColumns() - menuString.length()) / 2,
-		                     ts.getRows() - 1, menuString, Color.GREEN, Color.BLACK);
+		gameScreen.putString((ts.getColumns() - menuString.length()) / 2, ts.getRows() - 1, menuString, Color.GREEN,
+		                     Color.BLACK);
 	}
 
 	/**
@@ -257,5 +265,9 @@ public class Game extends AbstractState {
 	public void pauseResume() {
 
 		paused = !paused;
+	}
+
+	public Level getLevel() {
+		return level;
 	}
 }

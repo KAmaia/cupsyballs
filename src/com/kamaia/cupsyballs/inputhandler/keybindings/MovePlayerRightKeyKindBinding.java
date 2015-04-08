@@ -3,6 +3,8 @@ package com.kamaia.cupsyballs.inputhandler.keybindings;
 import com.googlecode.lanterna.input.Key;
 import com.kamaia.cupsyballs.gui.GameWindow;
 import com.kamaia.cupsyballs.inputhandler.gamekeybindinginterface.GameKeyKindBindingInterface;
+import com.kamaia.cupsyballs.level.Level;
+import com.kamaia.cupsyballs.pieces.Players.Player;
 import com.kamaia.cupsyballs.states.Game;
 
 /**
@@ -13,8 +15,19 @@ public class MovePlayerRightKeyKindBinding implements GameKeyKindBindingInterfac
 
 	@Override
 	public void execute(GameWindow window, Game sendingState) {
+		if(checkPlayerBounds(sendingState.getPlayer(), sendingState.getLevel())) {
+			sendingState.getPlayer().moveRight();
+		}
+	}
 
-		sendingState.getPlayer().moveRight();
+	private boolean checkPlayerBounds(Player player, Level level) {
+		if(player.getPosX() >= level.getSizeW() -1){
+			return false;
+		}
+		else{
+			return true;
+		}
+
 	}
 
 	@Override

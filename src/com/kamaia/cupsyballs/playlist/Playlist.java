@@ -42,12 +42,13 @@ public class Playlist {
 		public PlaylistBuilder(int size) {
 			this.size = size;
 		}
-		public PlaylistBuilder buildMaps(){
+		/*public PlaylistBuilder buildMaps(){
 			for(int i = 0; i < size; i++){
 				maps.add(new Map.MapBuilder(80, 40).addObstacles(15).Build());
 			}
 			return this;
 		}
+		*/
 		public Playlist Build(){
 			return new Playlist(this);
 		}
