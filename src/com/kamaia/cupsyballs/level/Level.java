@@ -3,6 +3,7 @@ package com.kamaia.cupsyballs.level;
 import com.kamaia.cupsyballs.helpers.HelperFuncs;
 import com.kamaia.cupsyballs.level.map.Map;
 import com.kamaia.cupsyballs.level.pieces.obstacles.Obstacle;
+import com.kamaia.cupsyballs.level.pieces.obstacles.effects.PlayerVerticalSlowObstacleEffect;
 
 import java.util.ArrayList;
 
@@ -52,7 +53,8 @@ public class Level {
 
 		public LevelBuilder buildObstacles(int numOfObstacles) {
 			for (int i = 0; i < numOfObstacles; i++) {
-				Obstacle o = new Obstacle.ObstacleBuilder().setLength().setSymbol().Build();
+				Obstacle o = new Obstacle.ObstacleBuilder().setLength().setEffect(
+					   new PlayerVerticalSlowObstacleEffect()).setSymbol().Build();
 				obstacles.add(o);
 			}
 			return this;

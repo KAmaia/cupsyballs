@@ -1,6 +1,7 @@
-package com.kamaia.cupsyballs.pieces.Abstracts;
+package com.kamaia.cupsyballs.level.pieces.powerups.abstracts;
 
 import com.googlecode.lanterna.terminal.Terminal;
+import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPlayer;
 
 /**
  * Created by Krystal on 4/5/2015.

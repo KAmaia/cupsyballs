@@ -84,6 +84,6 @@ public class Cup extends AbstractPlayer {
 	}
 
 	public void levelUp() {
-		speed += .5 * speed;
+		speed += .5 * getSpeed();
 	}
 }

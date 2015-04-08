@@ -33,16 +33,18 @@ public class Player extends AbstractPlayer {
 
 	/**
 	 * Moves the player along the Y Axis.
+	 *
 	 * @param level passed in from Game to make the player move faster/slower.
 	 */
 	public void updateY(int level) {
-		posY += speed * level;
+		posY += getSpeed() * level;
 	}
 
 	/**
 	 * Updates the score based on the level you're in.  (I know, it's boring....)
 	 * You are scored based on the level you are on.
 	 * The Formula is score += score + level.
+	 *
 	 * @param level the games current level.
 	 */
 	public void updateScore(int level) {
@@ -58,6 +60,7 @@ public class Player extends AbstractPlayer {
 
 	/**
 	 * really?
+	 *
 	 * @param posX sets the players new posX
 	 */
 	public void setPosX(int posX) {
@@ -73,10 +76,12 @@ public class Player extends AbstractPlayer {
 	public void moveDown() {
 
 		// TODO Auto-generated method stub
-		posY += speed;
+		posY += getSpeed();
 
 	}
-	public void update(){
+
+	public void update() {
+		applyEffects();
 		moveDown();
 	}
 
@@ -89,7 +94,8 @@ public class Player extends AbstractPlayer {
 	}
 
 	public void addLife() {
-		lives+=1;
+		lives += 1;
 	}
+
 }
 

@@ -1,6 +1,9 @@
 package com.kamaia.cupsyballs.pieces.Abstracts;
 
 import com.googlecode.lanterna.terminal.Terminal;
+import com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleEffectInterface;
+
+import java.util.HashMap;
 
 /**
  * Created by Krystal on 4/5/2015.
@@ -12,6 +15,7 @@ public class AbstractPlayer {
 	protected     String         symbol;
 	protected     float          posX;
 	protected     float          posY;
+	private HashMap<ObstacleEffectInterface, Integer> activeEffects = new HashMap<ObstacleEffectInterface, Integer>();
 
 
 	/**
@@ -51,9 +55,10 @@ public class AbstractPlayer {
 		return posY;
 	}
 
-	public void setPosX(int posX){
+	public void setPosX(int posX) {
 		this.posX = posX;
 	}
+
 	public void setPosY(int posY) {
 
 		this.posY = posY;
@@ -65,5 +70,47 @@ public class AbstractPlayer {
 
 	protected void moveRight() {
 		posX += speed;
+	}
+
+	public void addEffect(ObstacleEffectInterface oei, int ticksToApply) {
+		if (!activeEffects.containsKey(oei)) {
+			activeEffects.put(oei, ticksToApply);
+		}
+		else {
+			int ticks = activeEffects.get(oei);
+			activeEffects.remove(oei);
+			ticks += ticksToApply;
+			activeEffects.put(oei, ticks);
+		}
+	}
+
+
+	protected void applyEffects() {
+		for (ObstacleEffectInterface oei : activeEffects.keySet()) {
+
+			if (activeEffects.get(oei) > 0) {
+				if (!oei.isApplied()) {
+					int ticksLeft = activeEffects.get(oei);
+					ticksLeft --;
+					System.out.println(oei.getEffectname() + ":"+ticksLeft);
+					activeEffects.put(oei, ticksLeft);
+					oei.applyEffect(this);
+
+				}
+				else {
+					oei.toggleApplied();
+					oei.removeEffect(this);
+					activeEffects.remove(oei);
+				}
+			}
+		}
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
 	}
 }

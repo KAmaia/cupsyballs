@@ -96,6 +96,7 @@ public class Game extends AbstractState {
 			levelUp();
 		}
 		player.update();
+		checkObstacleCollisions();
 		updateCup();
 		cup.update(); //todo: pass in a MAP argument.
 		updateScreen();
@@ -215,7 +216,7 @@ public class Game extends AbstractState {
 			return true;
 		}
 		else if ((int) player.getPosY() >= (int) cup.getPosY() && (int) player.getPosX() != (int) cup
-			   .getPosX() || checkObstacleCollisions()) {
+			   .getPosX()) {
 			if (player.getLives() >= 0) {
 				reset();
 			}
@@ -223,17 +224,16 @@ public class Game extends AbstractState {
 		return false;
 	}
 
-	private boolean checkObstacleCollisions() {
-		boolean objectCollision = false;
+	private void checkObstacleCollisions() {
 
 		for (Obstacle o : level.getObstacles()) {
 			int oEnd = o.getPosX() + o.getLength();
 			if (((int) player.getPosY() == o.getPosY()) && (((int) player.getPosX() >= o.getPosX()) && ((int) player
 				   .getPosX() <= oEnd))) {
-				objectCollision = true;
+				o.onCollision(player);
 			}
 		}
-		return objectCollision;
+
 	}
 
 	/**
