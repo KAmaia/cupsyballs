@@ -18,13 +18,14 @@ import com.kamaia.cupsyballs.states.menus.GameOverMenu;
  */
 public class Game extends AbstractState {
 
-	private final Player player;
-	private final Cup    cup;
+	private final Player   player;
+	private final Cup      cup;
 	private final Playlist playlist;
-	private       int    gameLevel;
-	private       Level  level;
-	private       Map    map;
+	private       int      gameLevel;
+	private       Level    level;
+	private       Map      map;
 	private boolean paused = false;
+	private int startX;
 
 	public Game(GameWindow window) {
 		super(window);
@@ -34,8 +35,9 @@ public class Game extends AbstractState {
 		level = playlist.getCurrentLevel();
 		map = level.getLevelMap();
 		gameScreen = window.getScreen();
-		player = new Player(gameScreen.getTerminalSize().getColumns() / 2, 3);
-		cup = new Cup(sizeX / 2, sizeY- 4, Color.BLACK, Color.BLUE);
+		startX = sizeX/2;
+		player = new Player(startX, 3);
+		cup = new Cup(startX, sizeY - 4, Color.BLACK, Color.BLUE);
 		gameLevel = 1;
 	}
 
@@ -112,7 +114,6 @@ public class Game extends AbstractState {
 
 	private void levelUp() {
 
-		// TODO Auto-generated method stub
 		gameLevel++;
 		if (cup.getCupSize() >= 3) {
 			cup.modCupSize(-1);
@@ -125,6 +126,8 @@ public class Game extends AbstractState {
 		map = level.getLevelMap();
 
 		player.setPosY(0);
+
+		player.setPosX(startX);
 		cup.levelUp();
 		player.updateScore(gameLevel);
 	}
@@ -164,13 +167,19 @@ public class Game extends AbstractState {
 		else {
 			gameScreen.clear();
 
-
 			drawCup();
 			drawMap();
+			drawStartLoc();
 			drawPlayer();
 			drawScoreBoard();
 			gameScreen.refresh();
 		}
+	}
+
+	private void drawStartLoc() {
+		gameScreen.putString(startX - 3, 0, "\\|| ||/",Color.GREEN, Color.BLACK);
+		gameScreen.putString(startX - 2, 1, "\\| |/ ", Color.GREEN, Color.BLACK);
+		gameScreen.putString(startX - 1, 2, "| | ", Color.GREEN, Color.BLACK);
 	}
 
 
