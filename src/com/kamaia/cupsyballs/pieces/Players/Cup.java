@@ -1,12 +1,13 @@
 package com.kamaia.cupsyballs.pieces.Players;
 
 import com.googlecode.lanterna.terminal.Terminal;
-import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPiece;
+import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPlayer;
 
-public class Cup extends AbstractPiece {
+public class Cup extends AbstractPlayer {
 
-	private int cupSize;
+	private int     cupSize;
 	private boolean movingLeft;
+	private int speed = 1;
 
 	/**
 	 * cupsize sets the cups width.  It shrinks each level.
@@ -39,20 +40,22 @@ public class Cup extends AbstractPiece {
 
 	/**
 	 * moves the cup in the appropriate direction based on movingLeft.
+	 *
 	 * @param level is passed in to adjust the speed of the cup.  The higher the level, the faster it goes!!!
 	 */
-	public void updateX(int level) {
+	public void updateX() {
 		if (!movingLeft) {
-			posX -= speed * level / 2;
+			moveRight();
 		}
 		else {
-			posX += speed * level / 2;
+			moveLeft();
 		}
 	}
 
 	/**
 	 * This function is only called when the game resizes.  It sets the cup back to the appropriate number of spaces
 	 * off the bottom.
+	 *
 	 * @param newY the new value of Y.  Always gamescreen.rows - 4;
 	 */
 	public void updateY(int newY) {
@@ -65,8 +68,9 @@ public class Cup extends AbstractPiece {
 
 	/**
 	 * Modifies the size of the cup.
+	 *
 	 * @param cupMod this number should always be a multiple of two. (Won't be catastrophic if it's not, you'll just
-	 *                  an uneven cup).  This number modifies the size of the cup.
+	 *               an uneven cup).  This number modifies the size of the cup.
 	 */
 	public void modCupSize(int cupMod) {
 		cupSize += cupMod;
@@ -77,7 +81,11 @@ public class Cup extends AbstractPiece {
 		symbol += "|";
 	}
 
-	public void update(int mapLevel) {
-		updateX(mapLevel);
+	public void update() {
+		updateX();
+	}
+
+	public void levelUp() {
+		speed += 1;
 	}
 }

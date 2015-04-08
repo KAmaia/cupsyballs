@@ -2,6 +2,13 @@
 
 Create a whole lot of comments.  I fucking hate comments.
 
+
+Playlists:
+    Current Status: Working on building maps at the moment.
+
+Maps:
+    Current Status: Needs Tiles.
+
 Powerups:
 
 Obstacles

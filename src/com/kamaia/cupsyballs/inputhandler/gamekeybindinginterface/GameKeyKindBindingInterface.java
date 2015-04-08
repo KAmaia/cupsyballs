@@ -7,7 +7,7 @@ import com.kamaia.cupsyballs.states.Game;
 /**
  * @author Krystal Amaia
  *         4/6/2015.
- *         This interface exists to map keys to actions.
+ *         This interface exists to level keys to actions.
  */
 public interface GameKeyKindBindingInterface {
 	public void execute(GameWindow window, Game sendingState);

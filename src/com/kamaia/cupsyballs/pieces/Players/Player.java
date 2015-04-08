@@ -1,14 +1,15 @@
 package com.kamaia.cupsyballs.pieces.Players;
 
 import com.googlecode.lanterna.terminal.Terminal;
-import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPiece;
+import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPlayer;
 
-public class Player extends AbstractPiece {
+public class Player extends AbstractPlayer {
 	private int score = 0;
 	private int lives;
 
 	public Player(int startX, int lives) {
-		super(startX, 0, .05f, Terminal.Color.RED, Terminal.Color.BLACK);
+		super(startX, 0, .15f, Terminal.Color.RED, Terminal.Color.BLACK);
+
 		this.lives = lives;
 		this.symbol = "O";
 	}
@@ -76,7 +77,7 @@ public class Player extends AbstractPiece {
 
 	}
 	public void update(int mapLevel){
-		if(lives > 0) {
+		if(lives >= 0) {
 			updateY(mapLevel);
 		}
 	}

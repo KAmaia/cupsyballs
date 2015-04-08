@@ -3,11 +3,9 @@ package com.kamaia.cupsyballs.states;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.helpers.HelperFuncs;
+import com.kamaia.cupsyballs.level.pieces.obstacles.Obstacle;
 import com.kamaia.cupsyballs.pieces.Players.Cup;
 import com.kamaia.cupsyballs.pieces.Players.Player;
-import com.kamaia.cupsyballs.pieces.obstacles.Obstacle;
-import com.kamaia.cupsyballs.pieces.obstacles.obstaclebuilder.ObstacleBuilder;
 import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 import com.kamaia.cupsyballs.states.menus.GameOverMenu;
 
@@ -85,9 +83,10 @@ public class Game extends AbstractState {
 		if (k != null) {
 			inputhandler.handleInput(this, k);
 		}
-		if (checkObstacleCollisions()) {
+		/*if (checkObstacleCollisions()) {
 			reset();
 		}
+		*/
 		if (checkWin()) {
 			levelUp();
 		}
@@ -110,28 +109,19 @@ public class Game extends AbstractState {
 			cup.modCupSize(-1);
 		}
 
-		if (level >= 3) {
-			//clear the obstacles array list
-			obstacles.clear();
-			generateObstacles(level);
-		}
 		player.setPosY(0);
+		cup.levelUp();
 		player.updateScore(level);
 	}
 
-	private void generateObstacles(int levelRef) {
-		int numObstacles = HelperFuncs.newRandomInRange(10, 10 * levelRef);
-		for (int i = 0; i < numObstacles; i++) {
-			obstacles.add(new ObstacleBuilder().build());
-		}
-	}
+
 
 	/**
 	 * Updates the postion of the cup on the screen.
 	 * If the cup reaches an edge cup.toggleLeft is called to change its direction.
 	 * Passes Level to adjust cup speed.
 	 * <p/>
-	 * TODO: Move this functionality into the Cup.update() method after creating a real map.
+	 * TODO: Move this functionality into the Cup.update() method after creating a real level.
 	 */
 	private void updateCup() {
 
@@ -160,9 +150,7 @@ public class Game extends AbstractState {
 		//properly otherwise.
 		else {
 			gameScreen.clear();
-			for (Obstacle o : obstacles) {
-				drawObstacle(o);
-			}
+
 			drawPlayer();
 			drawCup();
 			drawScoreBoard();
@@ -170,10 +158,7 @@ public class Game extends AbstractState {
 		}
 	}
 
-	private void drawObstacle(Obstacle o) {
-		gameScreen.putString((int) o.getPosX(), (int) o.getPosY(), o.getSymbol(), o.getBgColor(),
-		                     o.getFgColor());
-	}
+
 
 	private void drawPlayer() {
 		/**
@@ -217,7 +202,7 @@ public class Game extends AbstractState {
 		return false;
 	}
 
-	private boolean checkObstacleCollisions() {
+	/*private boolean checkObstacleCollisions() {
 		boolean objectCollision = false;
 		for (Obstacle o : obstacles) {
 			if (((int) player.getPosY() == (int) o.getPosY()) && ((int) player.getPosX() >= (int) o.getPosX()) && (int) player.getPosX() <= (int) o.getPosX() + o.getLength()) {
@@ -226,7 +211,7 @@ public class Game extends AbstractState {
 		}
 		return objectCollision;
 	}
-
+	*/
 	/**
 	 * Resets the Player's Postion back to the top of the board
 	 */

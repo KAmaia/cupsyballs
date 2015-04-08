@@ -1,17 +1,16 @@
-package com.kamaia.cupsyballs.pieces.obstacles;
+package com.kamaia.cupsyballs.level.pieces.obstacles;
 
 import com.kamaia.cupsyballs.helpers.HelperFuncs;
-import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPiece;
 
 /**
  * Created by Krystal on 4/5/2015.
  * NOT HERE YET
  */
 
-public class Obstacle extends AbstractPiece {
-	private int length;
-	private int center;
-
+public class Obstacle {
+	private final int length;
+	private final int center;
+	private final String symbol;
 	private Obstacle(ObstacleBuilder builder){
 		this.symbol = builder.symbol;
 		this.length = builder.length;

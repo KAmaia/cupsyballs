@@ -1,7 +1,7 @@
 package com.kamaia.cupsyballs.playlist;
 
 
-import com.kamaia.cupsyballs.map.Map;
+import com.kamaia.cupsyballs.level.map.Map;
 
 import java.util.ArrayList;
 
@@ -44,7 +44,7 @@ public class Playlist {
 		}
 		public PlaylistBuilder buildMaps(){
 			for(int i = 0; i < size; i++){
-				maps.add(new Map.MapBuilder(80, 40).Build());
+				maps.add(new Map.MapBuilder(80, 40).addObstacles(15).Build());
 			}
 			return this;
 		}
