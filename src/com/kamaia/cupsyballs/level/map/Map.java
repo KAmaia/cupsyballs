@@ -34,7 +34,7 @@ public class Map {
 		public MapBuilder createMap() {
 			map = new String[sizeY];
 			for (int y = 0; y < sizeY - 1; y++) {
-				map[y] = new String();
+				map[y] = "";
 
 				char[] tmp = new char[sizeX];
 				for (Obstacle o : level.getObstacles()) {

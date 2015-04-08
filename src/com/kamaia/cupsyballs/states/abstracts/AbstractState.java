@@ -11,7 +11,7 @@ public abstract class AbstractState {
 	//Holds all the information for different states.
 	protected final GameWindow   gw;
 	protected final InputHandler inputhandler;
-	protected final TerminalSize ts;
+	final TerminalSize ts;
 	protected final int          sizeY;
 	protected final int          sizeX;
 	protected       Screen       gameScreen;
@@ -27,12 +27,6 @@ public abstract class AbstractState {
 		sizeY = ts.getRows();
 		running = true;
 	}
-
-	/**
-	 * MUST BE OVERLOADED
-	 */
-
-	protected abstract void updateScreen();
 
 	/**
 	 * sets the running status of the non-abstract state

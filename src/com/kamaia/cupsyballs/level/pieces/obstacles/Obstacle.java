@@ -54,7 +54,7 @@ public class Obstacle {
 			return this;
 		}
 
-		public ObstacleBuilder setSymbol(String symbol) {
+		public ObstacleBuilder setSymbol() {
 			this.symbol = '#';
 			return this;
 		}

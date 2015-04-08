@@ -15,7 +15,7 @@ public class OpenInGameMenuKeyKindBinding implements GameKeyKindBindingInterface
 	@Override
 	public void execute(GameWindow window, Game sendingState) {
 		sendingState.pauseResume();
-		InGameMenu igm = new InGameMenu(window, sendingState);
+		InGameMenu igm = new InGameMenu(window);
 		igm.run();
 		sendingState.pauseResume();
 	}

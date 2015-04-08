@@ -19,6 +19,7 @@ public class GameWindow {
 		t = TerminalFacade.createSwingTerminal(rows, cols);
 
 		s = new Screen(t);
+		s.setCursorPosition(null);
 	}
 
 	/**
@@ -27,14 +28,6 @@ public class GameWindow {
 	 */
 	public Screen getScreen() {
 		return s;
-	}
-
-	/**
-	 *
-	 * @return Terminal t
-	 */
-	public Terminal getTerminal() {
-		return t;
 	}
 
 

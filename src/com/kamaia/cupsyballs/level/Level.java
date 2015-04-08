@@ -42,7 +42,7 @@ public class Level {
 	public static class LevelBuilder {
 		private int sizeY;
 		private int sizeX;
-		private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
+		private final ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 
 		public LevelBuilder setSize(int sizeX, int sizeY) {
 			this.sizeY = sizeY;
@@ -52,7 +52,7 @@ public class Level {
 
 		public LevelBuilder buildObstacles(int numOfObstacles) {
 			for (int i = 0; i < numOfObstacles; i++) {
-				Obstacle o = new Obstacle.ObstacleBuilder().setLength().setSymbol("#").Build();
+				Obstacle o = new Obstacle.ObstacleBuilder().setLength().setSymbol().Build();
 				obstacles.add(o);
 			}
 			return this;

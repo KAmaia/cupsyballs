@@ -23,12 +23,7 @@ public class MovePlayerLeftKeyKindBinding implements GameKeyKindBindingInterface
 	}
 
 	private boolean checkPlayerBounds(Player player) {
-		if (player.getPosX() <= 0 || player.getPosY() <= 2){
-			return false;
-		}
-		else{
-			return true;
-		}
+		return !(player.getPosX() <= 0 || player.getPosY() <= 2);
 
 	}
 

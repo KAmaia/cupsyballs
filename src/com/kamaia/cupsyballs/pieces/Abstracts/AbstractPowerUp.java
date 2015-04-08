@@ -5,7 +5,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 /**
  * Created by Krystal on 4/5/2015.
  */
-public class AbstractPowerUp extends AbstractPlayer {
+class AbstractPowerUp extends AbstractPlayer {
 	/**
 	 * NOT HERE YET!
 	 *

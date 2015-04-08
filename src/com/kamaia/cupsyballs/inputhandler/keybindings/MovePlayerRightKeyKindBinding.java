@@ -21,12 +21,7 @@ public class MovePlayerRightKeyKindBinding implements GameKeyKindBindingInterfac
 	}
 
 	private boolean checkPlayerBounds(Player player, Level level) {
-		if(player.getPosX() >= level.getSizeX() -1 || player.getPosY() <= 2){
-			return false;
-		}
-		else{
-			return true;
-		}
+		return !(player.getPosX() >= level.getSizeX() - 1 || player.getPosY() <= 2);
 
 	}
 

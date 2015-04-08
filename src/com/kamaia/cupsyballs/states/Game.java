@@ -25,7 +25,7 @@ public class Game extends AbstractState {
 	private       Level    level;
 	private       Map      map;
 	private boolean paused = false;
-	private int startX;
+	private final int startX;
 
 	public Game(GameWindow window) {
 		super(window);
@@ -35,7 +35,7 @@ public class Game extends AbstractState {
 		level = playlist.getCurrentLevel();
 		map = level.getLevelMap();
 		gameScreen = window.getScreen();
-		startX = sizeX/2;
+		startX = sizeX / 2;
 		player = new Player(startX, 3);
 		cup = new Cup(startX, sizeY - 4, Color.BLACK, Color.BLUE);
 		gameLevel = 1;
@@ -153,7 +153,7 @@ public class Game extends AbstractState {
 	 * appropriate y location.
 	 * Updates the game screen.
 	 */
-	protected void updateScreen() {
+	private void updateScreen() {
 
 		//Checks to see if the screen has been resized since the last draw cycle.  If so, it updates the position of
 		//the cup.

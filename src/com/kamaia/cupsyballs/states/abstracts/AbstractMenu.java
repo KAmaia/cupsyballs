@@ -39,7 +39,7 @@ public abstract class AbstractMenu extends AbstractState {
 	/**
 	 * Updates the game screen each tick.  If the game window gets resized, resizes the virtual terminal to fit.
 	 */
-	protected void updateScreen() {
+	private void updateScreen() {
 
 		if (gameScreen.updateScreenSize()) {
 			gameScreen.clear();

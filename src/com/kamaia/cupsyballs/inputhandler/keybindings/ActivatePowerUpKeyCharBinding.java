@@ -9,7 +9,7 @@ import com.kamaia.cupsyballs.states.Game;
  * Created by Krystal on 4/6/2015.
  */
 public class ActivatePowerUpKeyCharBinding implements GameKeyCharBindingInterface {
-	char key = 'p';
+	private char key = 'p';
 
 	@Override
 	public void execute(GameWindow window, Game sendingState) {

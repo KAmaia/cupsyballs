@@ -6,12 +6,12 @@ import com.googlecode.lanterna.terminal.Terminal;
  * Created by Krystal on 4/5/2015.
  */
 public class AbstractPlayer {
-	protected float          speed;
-	private   Terminal.Color bgColor;
-	private   Terminal.Color fgColor;
-	protected String         symbol;
-	protected float           posX;
-	protected float            posY;
+	protected     float          speed;
+	private final Terminal.Color bgColor;
+	private final Terminal.Color fgColor;
+	protected     String         symbol;
+	protected     float          posX;
+	protected     float          posY;
 
 
 	/**
@@ -59,11 +59,11 @@ public class AbstractPlayer {
 		this.posY = posY;
 	}
 
-	public void moveLeft() {
+	protected void moveLeft() {
 		posX -= speed;
 	}
 
-	public void moveRight() {
+	protected void moveRight() {
 		posX += speed;
 	}
 }

@@ -41,7 +41,7 @@ public class Cup extends AbstractPlayer {
 	/**
 	 * moves the cup in the appropriate direction based on movingLeft.
 	 */
-	public void updateX() {
+	void updateX() {
 		if (!movingLeft) {
 			moveRight();
 		}

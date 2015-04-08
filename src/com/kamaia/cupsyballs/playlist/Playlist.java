@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Playlist {
 
-	private int size;
+	private final int size;
 	private int levelIndex = 0;
 
 	private ArrayList<Level> levels = new ArrayList<Level>();
@@ -42,8 +42,8 @@ public class Playlist {
 	}
 
 	public static class PlaylistBuilder {
-		private int size;
-		private ArrayList<Level> levels = new ArrayList<Level>();
+		private final int size;
+		private final ArrayList<Level> levels = new ArrayList<Level>();
 
 		public PlaylistBuilder(int size) {
 			this.size = size;
