@@ -10,24 +10,24 @@ import java.util.ArrayList;
  * Created by Krystal on 4/8/2015.
  */
 public class Level {
-	private final int sizeH;
-	private final int sizeW;
+	private final int sizeY;
+	private final int sizeX;
 	private final Map levelMap;
 	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 
 	private Level(LevelBuilder builder) {
-		this.sizeH = builder.sizeH;
-		this.sizeW = builder.sizeW;
+		this.sizeY = builder.sizeY;
+		this.sizeX = builder.sizeX;
 		this.obstacles = builder.obstacles;
 		this.levelMap = new Map.MapBuilder(this).createMap().Build();
 	}
 
-	public int getSizeH() {
-		return sizeH;
+	public int getSizeY() {
+		return sizeY;
 	}
 
-	public int getSizeW() {
-		return sizeW;
+	public int getSizeX() {
+		return sizeX;
 	}
 
 	public Map getLevelMap() {
@@ -40,13 +40,13 @@ public class Level {
 
 
 	public static class LevelBuilder {
-		private int sizeH;
-		private int sizeW;
+		private int sizeY;
+		private int sizeX;
 		private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 
-		public LevelBuilder setSize(int sizeH, int sizeW) {
-			this.sizeH = sizeH;
-			this.sizeW = sizeW;
+		public LevelBuilder setSize(int sizeX, int sizeY) {
+			this.sizeY = sizeY;
+			this.sizeX = sizeX;
 			return this;
 		}
 
@@ -70,8 +70,8 @@ public class Level {
 		}
 
 		private void setObstaclePosition(Obstacle o) {
-			o.setPosX(HelperFuncs.newRandomInRange(0, sizeW));
-			o.setPosY(HelperFuncs.newRandomInRange(0, sizeH));
+			o.setPosX(HelperFuncs.newRandomInRange(0, sizeX));
+			o.setPosY(HelperFuncs.newRandomInRange(0, sizeY));
 
 		}
 

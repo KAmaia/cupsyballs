@@ -3,6 +3,7 @@ package com.kamaia.cupsyballs.states;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.kamaia.cupsyballs.gui.GameWindow;
+import com.kamaia.cupsyballs.helpers.HelperFuncs;
 import com.kamaia.cupsyballs.level.Level;
 import com.kamaia.cupsyballs.level.map.Map;
 import com.kamaia.cupsyballs.level.pieces.obstacles.Obstacle;
@@ -27,9 +28,12 @@ public class Game extends AbstractState {
 	public Game(GameWindow window) {
 		super(window);
 
+		//Build the first level, and map
+		level = new Level.LevelBuilder().setSize(sizeX, sizeY).Build();
+		map = level.getLevelMap();
 		gameScreen = window.getScreen();
 		player = new Player(gameScreen.getTerminalSize().getColumns() / 2, 3);
-		cup = new Cup(ts.getColumns() / 2, ts.getRows() - 4, Color.BLACK, Color.BLUE);
+		cup = new Cup(sizeX / 2, sizeY- 4, Color.BLACK, Color.BLUE);
 		gameLevel = 1;
 	}
 
@@ -37,10 +41,6 @@ public class Game extends AbstractState {
 	 * The main game loop.
 	 */
 	public void run() {
-		//Build the first level, and map
-		level = new Level.LevelBuilder().setSize(ts.getRows(), ts.getColumns()).buildObstacles(10).placeObstacles()
-		                                .Build();
-		map = level.getLevelMap();
 		//The Main Game Loop
 		long lastTime = System.nanoTime(); // get the nano time the first time the loop is run.
 		double ticks = 140d;                // how many ticks per second do we want?  higher = faster.
@@ -98,8 +98,8 @@ public class Game extends AbstractState {
 	}
 
 	private void drawMap() {
-		for (int i = 0; i < level.getSizeH(); i++) {
-			gameScreen.putString(0, i, map.getString(i), Color.YELLOW, Color.BLACK);
+		for (int y = 0; y < level.getSizeY() - 1; y++) {
+			gameScreen.putString(0, y, map.getString(y), Color.YELLOW, Color.BLACK);
 		}
 	}
 
@@ -117,6 +117,10 @@ public class Game extends AbstractState {
 		}
 		if (gameLevel >= 3) {
 			player.addLife();
+			level = new Level.LevelBuilder().setSize(sizeX, sizeY -4)
+			                                .buildObstacles(HelperFuncs.newRandomInRange(gameLevel, 3 * gameLevel))
+			                                .placeObstacles().Build();
+			map = level.getLevelMap();
 		}
 
 		player.setPosY(0);
@@ -135,7 +139,7 @@ public class Game extends AbstractState {
 	private void updateCup() {
 
 		// updates the cups position on the screen
-		if (cup.getPosX() + cup.getCupSize() + 1 >= ts.getColumns() - 1 || cup.getPosX() <= 0) {
+		if (cup.getPosX() + cup.getCupSize() + 1 >= sizeX - 1 || cup.getPosX() <= 0) {
 			cup.toggleLeft();
 		}
 	}
@@ -151,7 +155,7 @@ public class Game extends AbstractState {
 		//the cup.
 		if (gameScreen.updateScreenSize()) {
 			gameScreen.clear();
-			cup.updateY(ts.getRows() - 4);
+			cup.updateY(sizeY - 4);
 			gameScreen.refresh();
 		}
 		//If it hasn't been resized, it simply redraws it.  (Yes I see the code replication, but it doesn't work
@@ -159,9 +163,10 @@ public class Game extends AbstractState {
 		else {
 			gameScreen.clear();
 
-			drawPlayer();
+
 			drawCup();
 			drawMap();
+			drawPlayer();
 			drawScoreBoard();
 			gameScreen.refresh();
 		}
@@ -230,7 +235,7 @@ public class Game extends AbstractState {
 			player.setLives(-1);
 			player.deathScore();
 
-			player.setPosX(ts.getColumns() / 2);
+			player.setPosX(sizeX / 2);
 			player.setPosY(0);
 		}
 		else if (player.getLives() <= 0) {
@@ -249,13 +254,13 @@ public class Game extends AbstractState {
 		String scoreBoard = "Level: " + gameLevel + "\tScore: " + player.getScore() + "\tLives Remaining: " + player
 			   .getLives();
 		String menuString = "(ESC) For Menu";
-		for (int i = 0; i <= ts.getColumns(); i++) {
+		for (int i = 0; i <= sizeX; i++) {
 			divider += "=";
 		}
-		gameScreen.putString(0, ts.getRows() - 3, divider, Color.RED, Color.BLACK);
-		gameScreen.putString((ts.getColumns() - scoreBoard.length()) / 2, ts.getRows() - 2, scoreBoard, Color.GREEN,
+		gameScreen.putString(0, sizeY - 3, divider, Color.RED, Color.BLACK);
+		gameScreen.putString((sizeX - scoreBoard.length()) / 2, sizeY - 2, scoreBoard, Color.GREEN,
 		                     Color.BLACK);
-		gameScreen.putString((ts.getColumns() - menuString.length()) / 2, ts.getRows() - 1, menuString, Color.GREEN,
+		gameScreen.putString((sizeX - menuString.length()) / 2, sizeY - 1, menuString, Color.GREEN,
 		                     Color.BLACK);
 	}
 

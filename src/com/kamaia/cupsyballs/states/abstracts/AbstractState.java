@@ -12,6 +12,8 @@ public abstract class AbstractState {
 	protected final GameWindow   gw;
 	protected final InputHandler inputhandler;
 	protected final TerminalSize ts;
+	protected final int          sizeY;
+	protected final int          sizeX;
 	protected       Screen       gameScreen;
 	protected       boolean      running;
 
@@ -21,6 +23,8 @@ public abstract class AbstractState {
 		gameScreen = gw.getScreen();
 		inputhandler = new InputHandler(gw);
 		ts = gameScreen.getTerminalSize();
+		sizeX = ts.getColumns();
+		sizeY = ts.getRows();
 		running = true;
 	}
 
@@ -48,8 +52,7 @@ public abstract class AbstractState {
 		// terminates curses mode.
 		gameScreen.clear();
 		TerminalSize ts = gameScreen.getTerminalSize();
-		gameScreen.putString(ts.getColumns() / 2, ts.getRows() / 2, "GOODBYE!",
-		                     Color.RED, Color.BLACK);
+		gameScreen.putString(ts.getColumns() / 2, ts.getRows() / 2, "GOODBYE!", Color.RED, Color.BLACK);
 		gameScreen.refresh();
 		gameScreen.stopScreen();
 		setRunning(false);

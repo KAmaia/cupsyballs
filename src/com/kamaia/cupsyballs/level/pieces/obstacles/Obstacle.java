@@ -9,7 +9,7 @@ import com.kamaia.cupsyballs.helpers.HelperFuncs;
 
 public class Obstacle {
 	private final int    length;
-	private final String symbol;
+	private final char symbol;
 	private       int    posX;
 	private       int    posY;
 
@@ -23,7 +23,7 @@ public class Obstacle {
 		return length;
 	}
 
-	public String getSymbol() {
+	public char getSymbol() {
 		return symbol;
 	}
 
@@ -46,7 +46,7 @@ public class Obstacle {
 
 	public static class ObstacleBuilder {
 		private int    length;
-		private String symbol;
+		private char symbol;
 
 		public ObstacleBuilder setLength() {
 			length = HelperFuncs.newRandomInRange(1, 5);
@@ -55,10 +55,7 @@ public class Obstacle {
 		}
 
 		public ObstacleBuilder setSymbol(String symbol) {
-			this.symbol = "";
-			for (int i = 0; i < length; i++) {
-				this.symbol += symbol;
-			}
+			this.symbol = '#';
 			return this;
 		}
 
