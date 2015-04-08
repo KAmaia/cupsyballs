@@ -3,12 +3,12 @@ package com.kamaia.cupsyballs.states;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.kamaia.cupsyballs.gui.GameWindow;
-import com.kamaia.cupsyballs.helpers.HelperFuncs;
 import com.kamaia.cupsyballs.level.Level;
 import com.kamaia.cupsyballs.level.map.Map;
 import com.kamaia.cupsyballs.level.pieces.obstacles.Obstacle;
 import com.kamaia.cupsyballs.pieces.Players.Cup;
 import com.kamaia.cupsyballs.pieces.Players.Player;
+import com.kamaia.cupsyballs.playlist.Playlist;
 import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 import com.kamaia.cupsyballs.states.menus.GameOverMenu;
 
@@ -20,6 +20,7 @@ public class Game extends AbstractState {
 
 	private final Player player;
 	private final Cup    cup;
+	private final Playlist playlist;
 	private       int    gameLevel;
 	private       Level  level;
 	private       Map    map;
@@ -29,7 +30,8 @@ public class Game extends AbstractState {
 		super(window);
 
 		//Build the first level, and map
-		level = new Level.LevelBuilder().setSize(sizeX, sizeY).Build();
+		playlist = new Playlist.PlaylistBuilder(20).buildLevels(sizeX, sizeY - 4).Build();
+		level = playlist.getCurrentLevel();
 		map = level.getLevelMap();
 		gameScreen = window.getScreen();
 		player = new Player(gameScreen.getTerminalSize().getColumns() / 2, 3);
@@ -117,11 +119,10 @@ public class Game extends AbstractState {
 		}
 		if (gameLevel >= 3) {
 			player.addLife();
-			level = new Level.LevelBuilder().setSize(sizeX, sizeY -4)
-			                                .buildObstacles(HelperFuncs.newRandomInRange(gameLevel, 3 * gameLevel))
-			                                .placeObstacles().Build();
-			map = level.getLevelMap();
 		}
+
+		level = playlist.getNextLevel();
+		map = level.getLevelMap();
 
 		player.setPosY(0);
 		cup.levelUp();

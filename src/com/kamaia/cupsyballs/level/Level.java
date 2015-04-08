@@ -61,9 +61,6 @@ public class Level {
 		public LevelBuilder placeObstacles() {
 			for (Obstacle o : obstacles) {
 				setObstaclePosition(o);
-
-				System.out.println("Placing Obstacle with length: " + o.getLength() + " @ " + o.getPosX() + "," + o
-					   .getPosY() + " " + o.getSymbol());
 			}
 
 			return this;

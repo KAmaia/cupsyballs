@@ -8,13 +8,9 @@ import com.kamaia.cupsyballs.level.pieces.obstacles.Obstacle;
  */
 public class Map {
 
-	private final int      sizeY;
-	private final int      sizeX;
 	private final String[] map;
 
 	private Map(MapBuilder builder) {
-		sizeY = builder.sizeY;
-		sizeX = builder.sizeX;
 		map = builder.map;
 	}
 
@@ -48,20 +44,20 @@ public class Map {
 
 					if (oPosY == y) {
 						for (int x = 0; x < sizeX; x++) {
-							if(x < oStart || x > oEnd){
-							tmp[x]= ' ';
+							if (x < oStart || x > oEnd) {
+								tmp[x] = ' ';
 							}
-							else if(x >=oStart && x <= oEnd){
+							else if (x >= oStart && x <= oEnd) {
 								tmp[x] = o.getSymbol();
 							}
 
 						}
-						System.out.println(tmp);
 
 					}
 					map[y] = new String(tmp);
 				}
-			} return this;
+			}
+			return this;
 		}
 
 		public Map Build() {

@@ -1,7 +1,8 @@
 package com.kamaia.cupsyballs.playlist;
 
 
-import com.kamaia.cupsyballs.level.map.Map;
+import com.kamaia.cupsyballs.helpers.HelperFuncs;
+import com.kamaia.cupsyballs.level.Level;
 
 import java.util.ArrayList;
 
@@ -11,45 +12,58 @@ import java.util.ArrayList;
 public class Playlist {
 
 	private int size;
-	private int mapIndex = 0;
+	private int levelIndex = 0;
 
-	private ArrayList<Map> maps = new ArrayList<Map>();
+	private ArrayList<Level> levels = new ArrayList<Level>();
 
 	private Playlist(PlaylistBuilder builder) {
 		this.size = builder.size;
-		this.maps = builder.maps;
+		this.levels = builder.levels;
 	}
-	public Map getCurrentMap(){
-		return maps.get(mapIndex);
+
+	public Level getCurrentLevel() {
+		return levels.get(levelIndex);
+
 	}
-	public Map getNextMap(){
-		if(mapIndex + 1 < size) {
-			mapIndex += 1;
+
+	public Level getNextLevel() {
+		if (levelIndex + 1 < size) {
+			levelIndex += 1;
 		}
-		return maps.get(mapIndex);
+		return levels.get(levelIndex);
+
 	}
-	public Map getPreviousMap(){
-		if(mapIndex > 0) {
-			mapIndex -= 1;
+
+	public Level getPreviousMap() {
+		if (levelIndex > 0) {
+			levelIndex -= 1;
 		}
-		return maps.get(mapIndex);
+		return levels.get(levelIndex);
 	}
 
 	public static class PlaylistBuilder {
-		private final int size;
-		private ArrayList<Map> maps = new ArrayList<Map>();
+		private int size;
+		private ArrayList<Level> levels = new ArrayList<Level>();
 
 		public PlaylistBuilder(int size) {
 			this.size = size;
 		}
-		/*public PlaylistBuilder buildMaps(){
-			for(int i = 0; i < size; i++){
-				maps.add(new Map.MapBuilder(80, 40).addObstacles(15).Build());
+
+		public PlaylistBuilder buildLevels(int sizeX, int sizeY) {
+			for (int i = 0; i < size - 1; i++) {
+				if (i < 3) {
+					levels.add(new Level.LevelBuilder().setSize(sizeX, sizeY).Build());
+				}
+				else {
+					int numObstacles = HelperFuncs.newRandomInRange(i, i * 3);
+					levels.add(new Level.LevelBuilder().setSize(sizeX, sizeY).buildObstacles(numObstacles)
+					                                   .placeObstacles().Build());
+				}
 			}
 			return this;
 		}
-		*/
-		public Playlist Build(){
+
+		public Playlist Build() {
 			return new Playlist(this);
 		}
 	}
