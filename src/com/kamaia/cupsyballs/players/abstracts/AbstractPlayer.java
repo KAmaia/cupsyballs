@@ -4,6 +4,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleEffectInterface;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Krystal on 4/5/2015.
@@ -73,16 +74,18 @@ public class AbstractPlayer {
 	}
 
 	/**
-	 * @WIP
-	 * Adds Selected Effect To Player's activeEffect list
 	 * @param oei
 	 * @param ticksToApply
+	 * @WIP Adds Selected Effect To Player's activeEffect list
 	 */
 	public void addEffect(ObstacleEffectInterface oei, int ticksToApply) {
-		if (!activeEffects.containsKey(oei)) {
+
+		if (!activeEffects.containsKey(oei) && !oei.isApplied()) {
+			System.out.println("Apply oei for " + ticksToApply + " ticks");
 			activeEffects.put(oei, ticksToApply);
 		}
 		else {
+
 			int ticks = activeEffects.get(oei);
 			activeEffects.remove(oei);
 			ticks += ticksToApply;
@@ -91,33 +94,28 @@ public class AbstractPlayer {
 	}
 
 	/**
-	 * @WIP
-	 * Applies all active effects to player.
-	 *
+	 * @WIP Applies all active effects to player.
 	 */
 	protected void applyEffects() {
-		for (ObstacleEffectInterface oei : activeEffects.keySet()) {
+		for (Map.Entry<ObstacleEffectInterface, Integer> entry : activeEffects.entrySet()) {
+			if (entry.getValue() > 0) {
 
-			if (activeEffects.get(oei) > 0) {
-				if (oei.isApplied()) {
-					int ticksLeft = activeEffects.get(oei);
-					ticksLeft --;
-					System.out.println(oei.getEffectname() + ":"+ticksLeft);
-					activeEffects.put(oei, ticksLeft);
-					oei.applyEffect(this);
-
-				}
-				else {
-					oei.toggleApplied();
-					oei.removeEffect(this);
-					activeEffects.remove(oei);
-				}
+				System.out.println("Applying Effect: " + entry.getKey().getEffectname() + " for " + entry
+					   .getValue() + " more ticks");
+				entry.getKey().applyEffect(this);
+				int x = entry.getValue() - 1;
+				entry.setValue(x);
+			}
+			else {
+				activeEffects.remove(entry.getKey());
+				entry.getKey().removeEffect(this);
 			}
 		}
 	}
 
 	/**
 	 * Returns the player's speed.
+	 *
 	 * @return speed
 	 */
 	public float getSpeed() {
@@ -126,6 +124,7 @@ public class AbstractPlayer {
 
 	/**
 	 * Sets the player's new speed.
+	 *
 	 * @param speed
 	 */
 	public void setSpeed(float speed) {

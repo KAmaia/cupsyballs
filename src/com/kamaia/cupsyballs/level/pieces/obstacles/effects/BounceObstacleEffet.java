@@ -4,20 +4,19 @@ import com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleE
 import com.kamaia.cupsyballs.players.abstracts.AbstractPlayer;
 
 /**
- * @author Krystal Amaia
- * @see com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleEffectInterface
+ * Created by Krystal on 4/9/2015.
  */
-public class PlayerVerticalSlowObstacleEffect implements ObstacleEffectInterface {
+public class BounceObstacleEffet implements ObstacleEffectInterface {
 	float oldSpeed;
 	private boolean applied;
 	private int ticksToApply;
 
-	public PlayerVerticalSlowObstacleEffect(int ticksToApply){
+	public BounceObstacleEffet(int ticksToApply){
 		this.ticksToApply = ticksToApply;
 	}
 	@Override
 	public void execute(AbstractPlayer target) {
-		if(!applied) {
+		if (!applied) {
 			oldSpeed = target.getSpeed();
 			target.addEffect(this, ticksToApply);
 		}

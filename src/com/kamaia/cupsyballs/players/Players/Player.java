@@ -76,7 +76,7 @@ public class Player extends AbstractPlayer {
 	public void moveDown() {
 
 		// TODO Auto-generated method stub
-		posY += getSpeed();
+		posY += speed;
 
 	}
 
