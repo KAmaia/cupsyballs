@@ -1,18 +1,18 @@
 package com.kamaia.cupsyballs.level.pieces.obstacles.effects;
 
 import com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleEffectInterface;
-import com.kamaia.cupsyballs.pieces.Abstracts.AbstractPlayer;
-import com.kamaia.cupsyballs.pieces.Players.Player;
+import com.kamaia.cupsyballs.pieces.abstracts.AbstractPlayer;
 
 /**
- * Created by Krystal on 4/8/2015.
+ * @author Krystal Amaia
+ * @see com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleEffectInterface
  */
 public class PlayerVerticalSlowObstacleEffect implements ObstacleEffectInterface {
 	float oldSpeed;
 	private boolean applied;
 
 	@Override
-	public void execute(Player target) {
+	public void execute(AbstractPlayer target) {
 
 		oldSpeed = target.getSpeed();
 		target.addEffect(this, 10);

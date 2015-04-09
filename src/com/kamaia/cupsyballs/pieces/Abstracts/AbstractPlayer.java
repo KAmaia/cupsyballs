@@ -1,4 +1,4 @@
-package com.kamaia.cupsyballs.pieces.Abstracts;
+package com.kamaia.cupsyballs.pieces.abstracts;
 
 import com.googlecode.lanterna.terminal.Terminal;
 import com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleEffectInterface;
@@ -72,6 +72,12 @@ public class AbstractPlayer {
 		posX += speed;
 	}
 
+	/**
+	 * @WIP
+	 * Adds Selected Effect To Player's activeEffect list
+	 * @param oei
+	 * @param ticksToApply
+	 */
 	public void addEffect(ObstacleEffectInterface oei, int ticksToApply) {
 		if (!activeEffects.containsKey(oei)) {
 			activeEffects.put(oei, ticksToApply);
@@ -84,12 +90,16 @@ public class AbstractPlayer {
 		}
 	}
 
-
+	/**
+	 * @WIP
+	 * Applies all active effects to player.
+	 *
+	 */
 	protected void applyEffects() {
 		for (ObstacleEffectInterface oei : activeEffects.keySet()) {
 
 			if (activeEffects.get(oei) > 0) {
-				if (!oei.isApplied()) {
+				if (oei.isApplied()) {
 					int ticksLeft = activeEffects.get(oei);
 					ticksLeft --;
 					System.out.println(oei.getEffectname() + ":"+ticksLeft);
@@ -106,10 +116,18 @@ public class AbstractPlayer {
 		}
 	}
 
+	/**
+	 * Returns the player's speed.
+	 * @return speed
+	 */
 	public float getSpeed() {
 		return speed;
 	}
 
+	/**
+	 * Sets the player's new speed.
+	 * @param speed
+	 */
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
