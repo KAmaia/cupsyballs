@@ -1,7 +1,7 @@
 package com.kamaia.cupsyballs.level.pieces.obstacles.effects;
 
 import com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleEffectInterface;
-import com.kamaia.cupsyballs.pieces.abstracts.AbstractPlayer;
+import com.kamaia.cupsyballs.players.abstracts.AbstractPlayer;
 
 /**
  * @author Krystal Amaia

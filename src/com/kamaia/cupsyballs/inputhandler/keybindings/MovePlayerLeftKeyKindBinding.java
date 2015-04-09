@@ -3,7 +3,7 @@ package com.kamaia.cupsyballs.inputhandler.keybindings;
 import com.googlecode.lanterna.input.Key;
 import com.kamaia.cupsyballs.gui.GameWindow;
 import com.kamaia.cupsyballs.inputhandler.gamekeybindinginterface.GameKeyKindBindingInterface;
-import com.kamaia.cupsyballs.pieces.Players.Player;
+import com.kamaia.cupsyballs.players.Players.Player;
 import com.kamaia.cupsyballs.states.Game;
 
 /**

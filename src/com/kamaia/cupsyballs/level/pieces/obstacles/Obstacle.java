@@ -2,7 +2,7 @@ package com.kamaia.cupsyballs.level.pieces.obstacles;
 
 import com.kamaia.cupsyballs.helpers.HelperFuncs;
 import com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces.ObstacleEffectInterface;
-import com.kamaia.cupsyballs.pieces.Players.Player;
+import com.kamaia.cupsyballs.players.Players.Player;
 
 /**
  * Obstacle Class.

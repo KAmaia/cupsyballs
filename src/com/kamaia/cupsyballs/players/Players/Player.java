@@ -1,7 +1,7 @@
-package com.kamaia.cupsyballs.pieces.Players;
+package com.kamaia.cupsyballs.players.Players;
 
 import com.googlecode.lanterna.terminal.Terminal;
-import com.kamaia.cupsyballs.pieces.abstracts.AbstractPlayer;
+import com.kamaia.cupsyballs.players.abstracts.AbstractPlayer;
 
 public class Player extends AbstractPlayer {
 	private int score = 0;

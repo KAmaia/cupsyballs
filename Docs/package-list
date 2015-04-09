@@ -11,9 +11,9 @@ com.kamaia.cupsyballs.level.pieces.obstacles.effects
 com.kamaia.cupsyballs.level.pieces.obstacles.effects.interfaces
 com.kamaia.cupsyballs.level.pieces.powerups
 com.kamaia.cupsyballs.level.pieces.powerups.abstracts
-com.kamaia.cupsyballs.pieces
-com.kamaia.cupsyballs.pieces.Players
-com.kamaia.cupsyballs.pieces.abstracts
+com.kamaia.cupsyballs.players
+com.kamaia.cupsyballs.players.Players
+com.kamaia.cupsyballs.players.abstracts
 com.kamaia.cupsyballs.playlist
 com.kamaia.cupsyballs.states
 com.kamaia.cupsyballs.states.abstracts
