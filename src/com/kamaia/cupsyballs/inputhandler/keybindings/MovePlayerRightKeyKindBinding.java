@@ -8,7 +8,8 @@ import com.kamaia.cupsyballs.pieces.Players.Player;
 import com.kamaia.cupsyballs.states.Game;
 
 /**
- * Created by Krystal on 4/6/2015.
+ * @author Krystal Amaia
+ * @see com.kamaia.cupsyballs.inputhandler.gamekeybindinginterface.GameKeyKindBindingInterface
  */
 public class MovePlayerRightKeyKindBinding implements GameKeyKindBindingInterface {
 	private Key.Kind key = Key.Kind.ArrowRight;

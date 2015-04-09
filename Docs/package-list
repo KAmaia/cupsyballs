@@ -4,7 +4,6 @@ com.kamaia.cupsyballs.helpers
 com.kamaia.cupsyballs.inputhandler
 com.kamaia.cupsyballs.inputhandler.gamekeybindinginterface
 com.kamaia.cupsyballs.inputhandler.keybindings
-com.kamaia.cupsyballs.inputhandler.menukeykindbindinginterface
 com.kamaia.cupsyballs.level
 com.kamaia.cupsyballs.level.map
 com.kamaia.cupsyballs.level.pieces.obstacles

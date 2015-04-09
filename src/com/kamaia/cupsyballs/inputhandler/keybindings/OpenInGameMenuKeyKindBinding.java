@@ -7,7 +7,8 @@ import com.kamaia.cupsyballs.states.Game;
 import com.kamaia.cupsyballs.states.menus.InGameMenu;
 
 /**
- * Created by Krystal on 4/6/2015.
+ * @author Krystal Amaia
+ * @see com.kamaia.cupsyballs.inputhandler.gamekeybindinginterface.GameKeyKindBindingInterface
  */
 public class OpenInGameMenuKeyKindBinding implements GameKeyKindBindingInterface {
 	private Key.Kind key = Key.Kind.Escape;

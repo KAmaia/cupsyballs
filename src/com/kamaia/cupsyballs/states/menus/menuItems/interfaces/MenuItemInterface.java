@@ -11,12 +11,13 @@ import com.kamaia.cupsyballs.states.abstracts.AbstractState;
 
 public interface MenuItemInterface {
 	/**
-	 * @return the items name in string form.
+	 * Returns the menu item name
+	 * @return the items name as a string.
 	 */
 	public String getItemString();
 
 	/**
-	 *
+	 * Executes the menu item.
 	 * @param window the window on which the menu item is going to act.
 	 * @param state the state that has requested execution.
 	 */
@@ -34,8 +35,11 @@ public interface MenuItemInterface {
 
 	/**
 	 * Yeah, I'm not even going to bother.
-	 * @return
 	 */
 	public Color getFgColor();
+
+	/**
+	 * Yeah, I'm not even going to bother.
+	 */
 	public Color getBgColor();
 }

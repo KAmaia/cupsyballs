@@ -17,6 +17,10 @@ public abstract class AbstractState {
 	protected       Screen       gameScreen;
 	protected       boolean      running;
 
+	/**
+	 * Constructor
+	 * @param window window on which to draw the state.
+	 */
 	protected AbstractState(GameWindow window) {
 
 		gw = window;

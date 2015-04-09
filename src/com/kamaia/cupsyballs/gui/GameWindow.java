@@ -16,9 +16,12 @@ public class GameWindow {
 	 * @param cols number of cols in the game window
 	 */
 	public GameWindow(int rows, int cols) {
-		t = TerminalFacade.createSwingTerminal(rows, cols);
 
+		t = TerminalFacade.createSwingTerminal(rows, cols);
 		s = new Screen(t);
+		/**
+		 * Workaround to make the cursor invisible.
+		 */
 		s.setCursorPosition(null);
 	}
 

@@ -4,26 +4,41 @@ import com.kamaia.cupsyballs.level.Level;
 import com.kamaia.cupsyballs.level.pieces.obstacles.Obstacle;
 
 /**
- * Created by Krystal on 4/6/2015.
+ * @author Krystal Amaia
  */
 public class Map {
 
 	private final String[] map;
 
+	/**
+	 * Constructor
+	 */
 	private Map(MapBuilder builder) {
 		map = builder.map;
 	}
 
+	/**
+	 * Returns a specific String from the String[] map
+	 * @param i The specified String from the String[] map
+	 * @return map[i] as a string value.
+	 */
 	public String getString(int i) {
 		return map[i];
 	}
 
+	/**
+	 * MapBuilder constructs a map of the calling level.
+	 */
 	public static class MapBuilder {
 		private final int      sizeY;
 		private final int      sizeX;
 		private final Level    level;
 		private       String[] map;
 
+		/**
+		 * Constructor
+		 * @param level the level which is being mapped.
+		 */
 		public MapBuilder(Level level) {
 			this.sizeY = level.getSizeY();
 			this.sizeX = level.getSizeX();
@@ -31,6 +46,10 @@ public class Map {
 
 		}
 
+		/**
+		 * Builds a String[] of the level.
+		 * @return Mapbuilder with the map created.
+		 */
 		public MapBuilder createMap() {
 			map = new String[sizeY];
 			for (int y = 0; y < sizeY - 1; y++) {
@@ -60,6 +79,10 @@ public class Map {
 			return this;
 		}
 
+		/**
+		 * Builds the final map.
+		 * @return a new map of the level.
+		 */
 		public Map Build() {
 			return new Map(this);
 		}

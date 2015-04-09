@@ -6,6 +6,10 @@ import com.kamaia.cupsyballs.states.menus.menuItems.interfaces.MenuItemInterface
 
 import java.util.ArrayList;
 
+/**
+ * @author Krystal Amaia
+ * @see com.kamaia.cupsyballs.states.abstracts.AbstractState
+ */
 public abstract class AbstractMenu extends AbstractState {
 	/**
 	 * menuItems arrayList of menuItemInterfaces;
@@ -20,7 +24,7 @@ public abstract class AbstractMenu extends AbstractState {
 	}
 
 	/**
-	 *  Starts the game loop.
+	 *  Starts the menu loop.
 	 */
 	public void run() {
 
@@ -37,7 +41,7 @@ public abstract class AbstractMenu extends AbstractState {
 	}
 
 	/**
-	 * Updates the game screen each tick.  If the game window gets resized, resizes the virtual terminal to fit.
+	 * Updates the menu each tick.  If the window gets resized, resizes the virtual terminal to fit.
 	 */
 	private void updateScreen() {
 

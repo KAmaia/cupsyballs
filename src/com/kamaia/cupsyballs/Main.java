@@ -5,7 +5,10 @@ import com.kamaia.cupsyballs.states.menus.MainMenu;
 
 class Main {
 
-
+	/**
+	 * There is really nothing to comment here.  It's all explained in the called classes.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		//Seriously, how the fuck am I supposed to comment this?
 		//There is like NOTHING HERE!

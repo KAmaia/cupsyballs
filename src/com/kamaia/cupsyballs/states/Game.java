@@ -84,8 +84,6 @@ public class Game extends AbstractState {
 	/**
 	 * The Heart and soul of the game loop.  Tick() is responsible for telling the game to update
 	 * pretty much everything, including input, "win" conditions, and levelling up the game.
-	 * A bug in Lanterna is currently preventing the cursor from ACTUALLY becoming invisible.
-	 * I've filed bug reports, hopefully it's fixed soon.
 	 */
 	private void tick() {
 		Key k = gameScreen.readInput();
@@ -102,6 +100,9 @@ public class Game extends AbstractState {
 		updateScreen();
 	}
 
+	/**
+	 * Draws the level map to the screen.
+	 */
 	private void drawMap() {
 		for (int y = 0; y < level.getSizeY() - 1; y++) {
 			gameScreen.putString(0, y, map.getString(y), Color.YELLOW, Color.BLACK);
